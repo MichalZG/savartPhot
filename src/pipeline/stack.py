@@ -77,6 +77,7 @@ class Stack(PipelineBase):
 		 self.config_section.get('datetime_key'),
 		 self.config_section.get('jd_key'))
 
+		self.info('Processing stack {} finished'.format(stack_name))
 		self._save_stack(median, stack_name, master_hdr)
 
 
@@ -112,15 +113,50 @@ class Stack(PipelineBase):
 		return stack_hdr
 
 
+	def _check_stack_list(self, stack_lists):
+
+		if len(stack_lists) == 0:
+			self.error('No files to stack in savart stack lists')
+			raise ValueError('No files to stack in savart stack lists')
+		if len(stack_lists) == 1:
+			self.warning('Only one savart list to stack')
+		if len(stack_lists) > 1:
+			it = iter(stack_lists.values())
+			ref_len = len(next(it))
+			if not all(len(l) == ref_len for l in it):
+				self.warning('Savarts stacks lists are not equal')
+
+		for savart_name, savart_list in stack_lists.items():
+			if len(savart_list) % self.stack_size != 0:
+				self.warning('Lenght of {} savart stack list is not a multiple of {}'.format(
+					savart_name, savart_list))
+				self.warning('The remaining files will be skipped')
+
+
 	def _create_stack_lists(self, names_of_savarts):
 
-		stack_list = dict((name, []) for name in names_of_savarts)
+		stack_lists = dict((name, []) for name in names_of_savarts)
 
 		for image in self.images_list:
-			if image.savart in stack_list:
-				stack_list[image.savart].append(image)
+			if image.savart in stack_lists:
+				stack_lists[image.savart].append(image)
 
-		return stack_list
+		self._check_stack_list(stack_lists)
+
+		for	savart_name, stack_list in stack_lists.items():
+
+			if self.stack_size > 0:
+				if len(stack_list) % self.stack_size == 0:
+					stack_lists[savart_name] = [
+					stack_list[i:i + self.stack_size] for i in range(
+						0, len(stack_list), self.stack_size)]
+				else:
+					stack_lists[savart_name] = [
+					stack_list[i:i + self.stack_size] for i in range(
+						0, len(stack_list), self.stack_size)][:-1]
+
+		self.info('Stack lists have been created')
+		return stack_lists
 
 
 	def _save_stack(self, stack_arr, stack_name, master_hdr):
@@ -129,6 +165,7 @@ class Stack(PipelineBase):
 		f = fits.open(os.path.join(self.output_directory, stack_name), mode='update')
 		f[0].header = master_hdr
 		f.flush()
+		self.info('Saving stack {} finished'.format(stack_name))
 
 
 	def process(self):
@@ -141,5 +178,9 @@ class Stack(PipelineBase):
 			self.config_section.get('savarts_to_stack').split(','))
 
 		for savart_name, stack_list in stack_lists.items():
-			stack_name = savart_name + '.fits'
-			self._create_stack(stack_list, stack_name)
+			for i, chunk in enumerate(stack_list):
+				stack_name = '{}_{}.fits'.format(savart_name, i+1)
+				self.info('Processing stack {} started'.format(stack_name))
+				self._create_stack(chunk, stack_name)
+				
+

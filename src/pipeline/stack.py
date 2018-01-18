@@ -107,8 +107,11 @@ class Stack(PipelineBase):
 		stack_hdr['JDEND'] = end_im.jd
 		mid_datetime, mid_jd = self._calculate_mid_time(start_im, end_im)
 
-		stack_hdr['DATEMID'] = mid_datetime
-		stack_hdr['JDMID'] = mid_jd
+		stack_hdr['DATETIME'] = mid_datetime
+		stack_hdr['JD'] = mid_jd
+
+		stack_hdr['IMNUM'] = len(images_list)
+		stack_hdr['FILTER'] = '-'.join([start_im.savart, start_im.filter_color])
 
 		return stack_hdr
 
@@ -118,9 +121,9 @@ class Stack(PipelineBase):
 		if len(stack_lists) == 0:
 			self.error('No files to stack in savart stack lists')
 			raise ValueError('No files to stack in savart stack lists')
-		if len(stack_lists) == 1:
+		elif len(stack_lists) == 1:
 			self.warning('Only one savart list to stack')
-		if len(stack_lists) > 1:
+		elif len(stack_lists) > 1:
 			it = iter(stack_lists.values())
 			ref_len = len(next(it))
 			if not all(len(l) == ref_len for l in it):
@@ -128,8 +131,9 @@ class Stack(PipelineBase):
 
 		for savart_name, savart_list in stack_lists.items():
 			if len(savart_list) % self.stack_size != 0:
-				self.warning('Lenght of {} savart stack list is not a multiple of {}'.format(
-					savart_name, savart_list))
+				self.warning(
+					'Lenght ({}) of {} savart stack list is not a multiple of {}'.format(
+					len(savart_list), savart_name, self.stack_size))
 				self.warning('The remaining files will be skipped')
 
 
@@ -183,4 +187,3 @@ class Stack(PipelineBase):
 				self.info('Processing stack {} started'.format(stack_name))
 				self._create_stack(chunk, stack_name)
 				
-

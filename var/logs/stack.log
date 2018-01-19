@@ -5219,3 +5219,24 @@
 2018-01-19 13:52:52,065 INFO Saving stack P3_2.fits finished
 2018-01-19 13:52:52,065 INFO Saving stack P3_2.fits finished
 2018-01-19 13:52:52,065 INFO Saving stack P3_2.fits finished
+2018-01-19 19:01:35,892 INFO Images list has been created
+2018-01-19 19:01:35,893 INFO Images list length is 35
+2018-01-19 19:01:35,893 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/test/output" has been created.
+2018-01-19 19:01:35,945 INFO Images list has been created
+2018-01-19 19:01:35,945 INFO Images list length is 35
+2018-01-19 19:01:35,945 WARNING Savarts stacks lists are not equal
+2018-01-19 19:01:35,945 WARNING Lenght (9) of P1 savart stack list is not a multiple of 4
+2018-01-19 19:01:35,945 WARNING The remaining files will be skipped
+2018-01-19 19:01:35,945 INFO Stack lists have been created
+2018-01-19 19:01:35,945 INFO Processing stack P1_1.fits started
+2018-01-19 19:01:36,422 INFO Processing stack P1_1.fits finished
+2018-01-19 19:01:36,464 INFO Saving stack P1_1.fits finished
+2018-01-19 19:01:36,465 INFO Processing stack P1_2.fits started
+2018-01-19 19:01:36,938 INFO Processing stack P1_2.fits finished
+2018-01-19 19:01:36,951 INFO Saving stack P1_2.fits finished
+2018-01-19 19:01:36,952 INFO Processing stack P3_1.fits started
+2018-01-19 19:01:37,422 INFO Processing stack P3_1.fits finished
+2018-01-19 19:01:37,434 INFO Saving stack P3_1.fits finished
+2018-01-19 19:01:37,435 INFO Processing stack P3_2.fits started
+2018-01-19 19:01:37,876 INFO Processing stack P3_2.fits finished
+2018-01-19 19:01:37,887 INFO Saving stack P3_2.fits finished

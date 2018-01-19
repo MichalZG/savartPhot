@@ -33,7 +33,7 @@ class Stack(PipelineBase):
 
 	def _create_directory(self, directory):
 		try:
-			os.makedirs(directory)
+			os.makedirs(directory, exist_ok=True)
 			self.info('Directory "{}" has been created.'.format(directory))
 		except OSError:
 			self.warning(
@@ -112,6 +112,7 @@ class Stack(PipelineBase):
 
 		stack_hdr['IMNUM'] = len(images_list)
 		stack_hdr['FILTER'] = '-'.join([start_im.savart, start_im.filter_color])
+		stack_hdr['OBJECT'] = start_im.object
 
 		return stack_hdr
 

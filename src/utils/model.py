@@ -44,6 +44,17 @@ class Image:
     def data(self):
         return fits.getdata(self.image_dir)
 
+    @property
+    def shape(self):
+        return self.data.shape
+
+
+class Coordinate:
+    def __init__(self, name, x, y):
+        self.name = name
+        self.x = x
+        self.y = y
+
 
 class Pair:
 	def __init__(self, p1, p2, p3, p4):

@@ -166,9 +166,10 @@ class Stack(PipelineBase):
 
 	def _save_stack(self, stack_arr, stack_name, master_hdr):
 		CCDData.write(stack_arr, os.path.join(self.output_directory, stack_name),
-			hdu_mask=None, hdu_uncertainty=None, clobber=True)
+			hdu_mask=None, hdu_uncertainty=None, overwrite=True)
 		f = fits.open(os.path.join(self.output_directory, stack_name), mode='update')
 		f[0].header = master_hdr
+		f.verify('silentfix')
 		f.flush()
 		self.info('Saving stack {} finished'.format(stack_name))
 

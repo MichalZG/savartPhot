@@ -1,5 +1,5 @@
 from src.pipeline.base import PipelineBase
-from src.utils.model import Configuration, Image
+from src.utils.model import Configuration, Image, SavartCounts, SavartsPair
 
 import os
 import math
@@ -19,7 +19,6 @@ from astropy.table import hstack, vstack, Column
 from astropy.visualization import astropy_mpl_style
 from astropy.visualization import (ImageNormalize, MinMaxInterval,
                                    LinearStretch, ZScaleInterval)
-
 plt.style.use(astropy_mpl_style)
 
 class Savartphot(PipelineBase):
@@ -27,7 +26,11 @@ class Savartphot(PipelineBase):
      log_file_name='savartphot'):
         super(Savartphot, self).__init__(log_file_name, None)
         self.config = Configuration(config, [
-            ('output_file_ext', str),
+            ('savarts_to_process', str),
+            ('results_file_name', str),
+            ('results_file_ext', str),
+            ('pd_file_name', str),
+            ('pa_file_name', str),
             ('pattern', str),
             ('datetime_key', str),
             ('jd_key', str),
@@ -49,13 +52,17 @@ class Savartphot(PipelineBase):
             ('kernel_y', float),
             ('detect_threshold', float),
             ('npixels', int),
-            ('plot', int),
+            ('plot_images', int),
+            ('plot_images_dpi', int),
             ('aperture_linewidth', float),
             ('aperture_in_color', str),
             ('aperture_out_color', str),
             ('area_linewidth', float),
             ('area_color', str),
             ('area_linestyle', str),
+            ('plot_polarimetry', int),
+            ('plot_size_inches', str),
+            ('plot_polarimetry_dpi', int),
             ('flux_type', str),
             ('flux_error_type', str)])
 
@@ -64,13 +71,14 @@ class Savartphot(PipelineBase):
         if not self.config_section:
             raise ValueError('Configuration file is not correct.')
 
+        self.savarts_to_process = self.config_section.get('savarts_to_process').split(',')
         self.coordinates_file = coordinates_file
         self.work_path = work_path
         self.stars_coordinates = self._load_stars_coordinates()
         self.output_directory = output_directory
         self.images_list = self._create_images_list(self.work_path)
         self._create_directory(self.output_directory)
-        self.measurements = {}
+        self.measurements = []
 
 
     def _create_directory(self, directory):
@@ -242,7 +250,7 @@ class Savartphot(PipelineBase):
         return properties[min_dist_id - 1]
 
 
-    def _calc_phot_error(self, hdr, aperture, phot_table, bkgflux_table):
+    def _calc_phot_error(self, hdr, aperture, phot_table, bkgflux_table, bkg_mean):
 
         try:
             effective_gain = float(hdr[self.config_section.get('gain_key')])
@@ -251,14 +259,14 @@ class Savartphot(PipelineBase):
 
         err = math.sqrt(
             (phot_table['residual_aperture_sum'] / effective_gain) +
-            (aperture[0].area() * aperture[2] ** 2) +
-            ((aperture[0].area() ** 2 + aperture[2] ** 2) /
-             (bkgflux_table['aperture_sum'] * aperture[0].area())))
+            (aperture[0].area() * bkg_mean ** 2) +
+            ((aperture[0].area() ** 2 * bkg_mean ** 2) /
+             aperture[1].area()))
 
-        return [err]
+        return err
 
 
-    def _make_plot(self, data, apertures, im_name):
+    def _make_image_plot(self, data, apertures, im_name):
 
         norm = ImageNormalize(data, interval=ZScaleInterval(), 
                       stretch=LinearStretch())
@@ -272,17 +280,43 @@ class Savartphot(PipelineBase):
             aperture[1].plot(fill=False,
                 linewidth=self.config_section.get('aperture_linewidth'),
                 color=self.config_section.get('aperture_out_color'))
-            area = aperture[0]  # for plot mask area
+            area = aperture[0]
             area.a, area.b = [self.config_section.get('r_mask')] * 2
             area.plot(linewidth=self.config_section.get('area_linewidth'),
                 color=self.config_section.get('area_color'),
                 ls=self.config_section.get('area_linestyle'))
 
-        plt.savefig(os.path.join(self.output_directory, im_name+'.png'), dpi=900)
+        plt.savefig(os.path.join(self.output_directory, im_name+'.png'),
+         dpi=self.config_section.get('plot_images_dpi'))
         plt.clf()
 
+    def _make_polarimetry_plot(self, data):  
 
-    def _save_table(self, out_table, output_name):
+        for i, name in zip([1, 3], ['pd', 'pa']):
+            fig = plt.figure()
+            fig.set_size_inches(
+                int(x) for x in self.config_section.get('plot_size_inches').split(','))
+            ax = fig.add_subplot(111)
+            mean = [np.mean(data[:,i])]*len(data[:,0])
+            std = [np.std(data[:,i])]*len(data[:,0])
+            ax.errorbar(data[:,0], data[:,i], yerr=data[:,i+1], fmt='o')
+            ax.plot(data[:,0], mean, label='Mean={:.2f}'.format(np.mean(data[:,i])),
+                linestyle='--', c='r')
+            ax.plot(data[:,0], mean-np.std(data[:,i]), linestyle='--', c='k')
+            ax.plot(data[:,0], mean+np.std(data[:,i]),
+                label='std={:.2f}'.format(np.std(data[:,i])),
+                linestyle='--', c='k')
+            ax.set_xlabel('JD')
+            ax.set_ylabel('{}[%]'.format(name.upper()))
+            plt.legend(loc='upper right')
+
+            plt.savefig(os.path.join(self.output_directory,
+                self.config_section.get('{}_file_name'.format(name))),
+            dpi=self.config_section.get('plot_polarimetry_dpi'))
+            plt.clf()
+
+
+    def _save_image_output(self, out_table, output_name):
 
         out_table = vstack(out_table)
         out_table.add_column(
@@ -295,7 +329,7 @@ class Savartphot(PipelineBase):
             index=1)
 
         out_table.write(os.path.join(self.output_directory, output_name),
-            format='ascii', delimiter=',')
+            format='ascii', delimiter=',', overwrite=True)
 
 
     def make_phot(self):
@@ -304,6 +338,8 @@ class Savartphot(PipelineBase):
             apertures = self._make_apertures(image, self.stars_coordinates[image.savart],
                                              image.shape)
             out_table = []
+            counts_tab = []
+            counts_error_tab = []
 
             for aperture in apertures:
                 rawflux_table = aperture_photometry(image.data, aperture[0])
@@ -315,20 +351,66 @@ class Savartphot(PipelineBase):
                 final_sum = phot_table['aperture_sum_raw'] - bkg_sum
                 phot_table['residual_aperture_sum'] = final_sum
 
+                final_sum_error = self._calc_phot_error(image.hdr, aperture,
+                            phot_table, bkgflux_table, bkg_mean)
+
                 phot_table.add_column(
                     Column(name='residual_aperture_err_sum',
-                           data=self._calc_phot_error(image.hdr, aperture,
-                            phot_table, bkgflux_table)))
+                           data=[final_sum_error]))
 
                 phot_table['xcenter_raw'].shape = 1
                 phot_table['ycenter_raw'].shape = 1
                 phot_table['xcenter_bkg'].shape = 1
                 phot_table['ycenter_bkg'].shape = 1
+
                 out_table.append(phot_table)
+                counts_tab.append(final_sum)
+                counts_error_tab.append(final_sum_error)
 
             out_table = vstack(out_table)
 
-            if self.config_section.get('plot'):
-                self._make_plot(image.data, apertures, image.name)
+            self.measurements.append(
+                SavartCounts(image.savart, image.jd,
+                    counts_tab, counts_error_tab))
 
-            self._save_table(out_table, image.name + '.csv')
+            if self.config_section.get('plot_images'):
+                self._make_image_plot(image.data, apertures, image.name)
+
+            self._save_image_output(out_table, image.name + '.csv')
+
+        self._save_polarizaton_results()
+
+
+    def _create_savarts_tables(self):
+        savart1_tab = list(filter(
+            lambda savart: savart.name==self.savarts_to_process[0],
+         self.measurements))
+        savart2_tab = list(filter(
+            lambda savart: savart.name==self.savarts_to_process[1],
+         self.measurements))
+
+        return savart1_tab, savart2_tab
+
+
+    def _save_polarizaton_results(self):
+
+        output_table = []
+        savart1_tab, savart2_tab = self._create_savarts_tables()
+
+        if len(savart1_tab) != len(savart2_tab):
+            min_len = min([savart1_tab, savart2_tab], len)
+            savart1_tab, savart2_tab = savart1_tab[:min_len], savart2_tab[:min_len]
+
+        for savart1, savart2 in zip(savart1_tab, savart2_tab):
+            pair = SavartsPair(savart1, savart2)
+            output_table.append([pair.jd, pair.pd, pair.pd_error, pair.pa, pair.pa_error])
+
+        output_header = "#JD PD PD_error PA PA_error"
+        np.savetxt(os.path.join(self.output_directory,
+            self.config_section.get('results_file_name')+
+            self.config_section.get('results_file_ext')),
+            np.array(output_table),
+            delimiter=',', header=output_header, comments='')
+
+        if self.config_section.get('plot_polarimetry'):
+            self._make_polarimetry_plot(np.array(output_table))

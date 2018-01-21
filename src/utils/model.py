@@ -95,7 +95,7 @@ class SavartsPair:
 
 	@property
 	def pa(self):
-		return 0.5*atan(self.savart1.stokes/self.savart2.stokes) * 180./pi
+		return 0.5*atan(self.savart2.stokes/self.savart1.stokes) * 180./pi
 
 	@property
 	def pa_error(self):

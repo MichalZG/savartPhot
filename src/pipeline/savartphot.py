@@ -46,6 +46,7 @@ class Savartphot(PipelineBase):
             ('r_aperture_multi', float),
             ('r_annulus_in', int),
             ('r_annulus_out', int),
+            ('bkg_annulus', int),
             ('r_aperture', float),
             ('fwhm', float),
             ('kernel_x', float),
@@ -146,6 +147,9 @@ class Savartphot(PipelineBase):
     def _make_apertures(self, image, image_stars_coordinates, data_shape):
 
         apertures = []
+        sigma_values_table = []
+        sigma_value = namedtuple('sigma_value', ['mean', 'median', 'std'])
+
         masks = [self._create_mask(
             star_coo, data_shape) for star_coo in image_stars_coordinates]
 
@@ -195,8 +199,9 @@ class Savartphot(PipelineBase):
                                             'r_annulus_out'))
 
             apertures.append([aperture, annulus, std])
+            sigma_values_table.append(sigma_value(mean, median, std))
 
-        return apertures
+        return apertures, sigma_values_table
 
 
     def _create_mask(self, star_coo, data_shape):
@@ -281,7 +286,7 @@ class Savartphot(PipelineBase):
                 linewidth=self.config_section.get('aperture_linewidth'),
                 color=self.config_section.get('aperture_out_color'))
             area = aperture[0]
-            area.a, area.b = [self.config_section.get('r_mask')] * 2
+            area.r, area.a, area.b = [self.config_section.get('r_mask')] * 3
             area.plot(linewidth=self.config_section.get('area_linewidth'),
                 color=self.config_section.get('area_color'),
                 ls=self.config_section.get('area_linestyle'))
@@ -335,19 +340,29 @@ class Savartphot(PipelineBase):
     def make_phot(self):
 
         for image in self.images_list:
-            apertures = self._make_apertures(image, self.stars_coordinates[image.savart],
-                                             image.shape)
+            apertures, sigma_values_table = self._make_apertures(
+                image, self.stars_coordinates[image.savart],
+                image.shape)
+
             out_table = []
             counts_tab = []
             counts_error_tab = []
 
-            for aperture in apertures:
+            for aperture, sigma_value in zip(apertures, sigma_values_table):
                 rawflux_table = aperture_photometry(image.data, aperture[0])
                 bkgflux_table = aperture_photometry(image.data, aperture[1])
                 phot_table = hstack([rawflux_table, bkgflux_table],
                                     table_names=['raw', 'bkg'])
-                bkg_mean = phot_table['aperture_sum_bkg'] / aperture[1].area()
-                bkg_sum = bkg_mean * aperture[0].area()
+
+                if self.config_section.get('bkg_annulus'):
+                    bkg_mean = phot_table['aperture_sum_bkg'] / aperture[1].area()
+                    bkg_sum = bkg_mean * aperture[0].area()
+                else:
+                    bkg_mean = sigma_value.median
+                    bkg_sum = bkg_mean * aperture[0].area()
+                print(sigma_value)
+                print('ann: {:.2f}, mask: {}'.format(
+                    phot_table['aperture_sum_bkg'].quantity.value[0] / aperture[1].area(), sigma_value.median))
                 final_sum = phot_table['aperture_sum_raw'] - bkg_sum
                 phot_table['residual_aperture_sum'] = final_sum
 

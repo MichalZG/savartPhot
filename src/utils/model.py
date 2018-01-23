@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import os
-from math import sqrt, atan, pi
+from math import sqrt, pi
+import numpy as np
 from astropy.io import fits
 
 
@@ -95,7 +96,12 @@ class SavartsPair:
 
 	@property
 	def pa(self):
-		return 0.5*atan(self.savart2.stokes/self.savart1.stokes) * 180./pi
+		pa =  0.5 * np.arctan2(self.savart2.stokes, self.savart1.stokes) * 180./pi
+		
+		if pa < 0:
+			return 180. + pa
+
+		return pa
 
 	@property
 	def pa_error(self):

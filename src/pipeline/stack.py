@@ -1,6 +1,7 @@
 from src.pipeline.base import PipelineBase
 from src.utils.model import Configuration, Image
 
+import argparse
 import ccdproc
 from ccdproc import CCDData, Combiner
 import os
@@ -189,3 +190,17 @@ class Stack(PipelineBase):
 				self.info('Processing stack {} started'.format(stack_name))
 				self._create_stack(chunk, stack_name)
 				
+
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument('config', help='Configuration file path')
+	parser.add_argument('work_path', help='Files to process directory')
+	parser.add_argument('stack_size', help='Number of files to stack')
+	parser.add_argument('output_directory', help='Output path')
+
+	args = parser.parse_args()
+
+
+	stacking = Stack(args.config, args.work_path, args.stack_size, args.output_directory)
+	stacking.process()
+

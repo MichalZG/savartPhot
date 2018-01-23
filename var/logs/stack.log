@@ -19442,3 +19442,505 @@
 2018-01-21 20:39:09,845 INFO Saving stack P3_19.fits finished
 2018-01-21 20:39:09,845 INFO Saving stack P3_19.fits finished
 2018-01-21 20:39:09,845 INFO Saving stack P3_19.fits finished
+2018-01-23 17:16:28,570 INFO Images list has been created
+2018-01-23 17:16:28,570 INFO Images list length is 316
+2018-01-23 17:16:28,571 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd183143/output" has been created.
+2018-01-23 17:16:29,003 INFO Images list has been created
+2018-01-23 17:16:29,003 INFO Images list length is 316
+2018-01-23 17:16:29,003 WARNING Lenght (79) of P1 savart stack list is not a multiple of 16
+2018-01-23 17:16:29,003 WARNING The remaining files will be skipped
+2018-01-23 17:16:29,004 WARNING Lenght (79) of P3 savart stack list is not a multiple of 16
+2018-01-23 17:16:29,004 WARNING The remaining files will be skipped
+2018-01-23 17:16:29,004 INFO Stack lists have been created
+2018-01-23 17:16:29,004 INFO Processing stack P1_1.fits started
+2018-01-23 17:16:30,907 INFO Processing stack P1_1.fits finished
+2018-01-23 17:16:30,924 INFO Saving stack P1_1.fits finished
+2018-01-23 17:16:30,925 INFO Processing stack P1_2.fits started
+2018-01-23 17:16:32,847 INFO Processing stack P1_2.fits finished
+2018-01-23 17:16:32,858 INFO Saving stack P1_2.fits finished
+2018-01-23 17:16:32,859 INFO Processing stack P1_3.fits started
+2018-01-23 17:16:34,843 INFO Processing stack P1_3.fits finished
+2018-01-23 17:16:34,854 INFO Saving stack P1_3.fits finished
+2018-01-23 17:16:34,855 INFO Processing stack P1_4.fits started
+2018-01-23 17:16:36,846 INFO Processing stack P1_4.fits finished
+2018-01-23 17:16:36,858 INFO Saving stack P1_4.fits finished
+2018-01-23 17:16:36,860 INFO Processing stack P3_1.fits started
+2018-01-23 17:16:38,834 INFO Processing stack P3_1.fits finished
+2018-01-23 17:16:38,845 INFO Saving stack P3_1.fits finished
+2018-01-23 17:16:38,846 INFO Processing stack P3_2.fits started
+2018-01-23 17:16:40,848 INFO Processing stack P3_2.fits finished
+2018-01-23 17:16:40,859 INFO Saving stack P3_2.fits finished
+2018-01-23 17:16:40,861 INFO Processing stack P3_3.fits started
+2018-01-23 17:16:42,809 INFO Processing stack P3_3.fits finished
+2018-01-23 17:16:42,820 INFO Saving stack P3_3.fits finished
+2018-01-23 17:16:42,821 INFO Processing stack P3_4.fits started
+2018-01-23 17:16:44,746 INFO Processing stack P3_4.fits finished
+2018-01-23 17:16:44,757 INFO Saving stack P3_4.fits finished
+2018-01-23 17:16:56,466 INFO Images list has been created
+2018-01-23 17:16:56,466 INFO Images list has been created
+2018-01-23 17:16:56,466 INFO Images list length is 400
+2018-01-23 17:16:56,466 INFO Images list length is 400
+2018-01-23 17:16:56,466 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd204827/output" has been created.
+2018-01-23 17:16:56,466 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd204827/output" has been created.
+2018-01-23 17:16:57,144 INFO Images list has been created
+2018-01-23 17:16:57,144 INFO Images list has been created
+2018-01-23 17:16:57,144 INFO Images list length is 400
+2018-01-23 17:16:57,144 INFO Images list length is 400
+2018-01-23 17:16:57,148 WARNING Lenght (100) of P1 savart stack list is not a multiple of 16
+2018-01-23 17:16:57,148 WARNING Lenght (100) of P1 savart stack list is not a multiple of 16
+2018-01-23 17:16:57,148 WARNING The remaining files will be skipped
+2018-01-23 17:16:57,148 WARNING The remaining files will be skipped
+2018-01-23 17:16:57,148 WARNING Lenght (100) of P3 savart stack list is not a multiple of 16
+2018-01-23 17:16:57,148 WARNING Lenght (100) of P3 savart stack list is not a multiple of 16
+2018-01-23 17:16:57,148 WARNING The remaining files will be skipped
+2018-01-23 17:16:57,148 WARNING The remaining files will be skipped
+2018-01-23 17:16:57,148 INFO Stack lists have been created
+2018-01-23 17:16:57,148 INFO Stack lists have been created
+2018-01-23 17:16:57,148 INFO Processing stack P1_1.fits started
+2018-01-23 17:16:57,148 INFO Processing stack P1_1.fits started
+2018-01-23 17:16:59,141 INFO Processing stack P1_1.fits finished
+2018-01-23 17:16:59,141 INFO Processing stack P1_1.fits finished
+2018-01-23 17:16:59,153 INFO Saving stack P1_1.fits finished
+2018-01-23 17:16:59,153 INFO Saving stack P1_1.fits finished
+2018-01-23 17:16:59,156 INFO Processing stack P1_2.fits started
+2018-01-23 17:16:59,156 INFO Processing stack P1_2.fits started
+2018-01-23 17:17:01,318 INFO Processing stack P1_2.fits finished
+2018-01-23 17:17:01,318 INFO Processing stack P1_2.fits finished
+2018-01-23 17:17:01,329 INFO Saving stack P1_2.fits finished
+2018-01-23 17:17:01,329 INFO Saving stack P1_2.fits finished
+2018-01-23 17:17:01,332 INFO Processing stack P1_3.fits started
+2018-01-23 17:17:01,332 INFO Processing stack P1_3.fits started
+2018-01-23 17:17:03,494 INFO Processing stack P1_3.fits finished
+2018-01-23 17:17:03,494 INFO Processing stack P1_3.fits finished
+2018-01-23 17:17:03,507 INFO Saving stack P1_3.fits finished
+2018-01-23 17:17:03,507 INFO Saving stack P1_3.fits finished
+2018-01-23 17:17:03,510 INFO Processing stack P1_4.fits started
+2018-01-23 17:17:03,510 INFO Processing stack P1_4.fits started
+2018-01-23 17:17:05,501 INFO Processing stack P1_4.fits finished
+2018-01-23 17:17:05,501 INFO Processing stack P1_4.fits finished
+2018-01-23 17:17:05,513 INFO Saving stack P1_4.fits finished
+2018-01-23 17:17:05,513 INFO Saving stack P1_4.fits finished
+2018-01-23 17:17:05,515 INFO Processing stack P1_5.fits started
+2018-01-23 17:17:05,515 INFO Processing stack P1_5.fits started
+2018-01-23 17:17:07,600 INFO Processing stack P1_5.fits finished
+2018-01-23 17:17:07,600 INFO Processing stack P1_5.fits finished
+2018-01-23 17:17:07,611 INFO Saving stack P1_5.fits finished
+2018-01-23 17:17:07,611 INFO Saving stack P1_5.fits finished
+2018-01-23 17:17:07,613 INFO Processing stack P1_6.fits started
+2018-01-23 17:17:07,613 INFO Processing stack P1_6.fits started
+2018-01-23 17:17:09,672 INFO Processing stack P1_6.fits finished
+2018-01-23 17:17:09,672 INFO Processing stack P1_6.fits finished
+2018-01-23 17:17:09,683 INFO Saving stack P1_6.fits finished
+2018-01-23 17:17:09,683 INFO Saving stack P1_6.fits finished
+2018-01-23 17:17:09,685 INFO Processing stack P3_1.fits started
+2018-01-23 17:17:09,685 INFO Processing stack P3_1.fits started
+2018-01-23 17:17:11,691 INFO Processing stack P3_1.fits finished
+2018-01-23 17:17:11,691 INFO Processing stack P3_1.fits finished
+2018-01-23 17:17:11,702 INFO Saving stack P3_1.fits finished
+2018-01-23 17:17:11,702 INFO Saving stack P3_1.fits finished
+2018-01-23 17:17:11,704 INFO Processing stack P3_2.fits started
+2018-01-23 17:17:11,704 INFO Processing stack P3_2.fits started
+2018-01-23 17:17:13,774 INFO Processing stack P3_2.fits finished
+2018-01-23 17:17:13,774 INFO Processing stack P3_2.fits finished
+2018-01-23 17:17:13,786 INFO Saving stack P3_2.fits finished
+2018-01-23 17:17:13,786 INFO Saving stack P3_2.fits finished
+2018-01-23 17:17:13,788 INFO Processing stack P3_3.fits started
+2018-01-23 17:17:13,788 INFO Processing stack P3_3.fits started
+2018-01-23 17:17:15,722 INFO Processing stack P3_3.fits finished
+2018-01-23 17:17:15,722 INFO Processing stack P3_3.fits finished
+2018-01-23 17:17:15,735 INFO Saving stack P3_3.fits finished
+2018-01-23 17:17:15,735 INFO Saving stack P3_3.fits finished
+2018-01-23 17:17:15,737 INFO Processing stack P3_4.fits started
+2018-01-23 17:17:15,737 INFO Processing stack P3_4.fits started
+2018-01-23 17:17:17,717 INFO Processing stack P3_4.fits finished
+2018-01-23 17:17:17,717 INFO Processing stack P3_4.fits finished
+2018-01-23 17:17:17,729 INFO Saving stack P3_4.fits finished
+2018-01-23 17:17:17,729 INFO Saving stack P3_4.fits finished
+2018-01-23 17:17:17,731 INFO Processing stack P3_5.fits started
+2018-01-23 17:17:17,731 INFO Processing stack P3_5.fits started
+2018-01-23 17:17:19,695 INFO Processing stack P3_5.fits finished
+2018-01-23 17:17:19,695 INFO Processing stack P3_5.fits finished
+2018-01-23 17:17:19,706 INFO Saving stack P3_5.fits finished
+2018-01-23 17:17:19,706 INFO Saving stack P3_5.fits finished
+2018-01-23 17:17:19,708 INFO Processing stack P3_6.fits started
+2018-01-23 17:17:19,708 INFO Processing stack P3_6.fits started
+2018-01-23 17:17:21,694 INFO Processing stack P3_6.fits finished
+2018-01-23 17:17:21,694 INFO Processing stack P3_6.fits finished
+2018-01-23 17:17:21,705 INFO Saving stack P3_6.fits finished
+2018-01-23 17:17:21,705 INFO Saving stack P3_6.fits finished
+2018-01-23 17:30:21,708 INFO Images list has been created
+2018-01-23 17:30:21,708 INFO Images list has been created
+2018-01-23 17:30:21,708 INFO Images list has been created
+2018-01-23 17:30:21,708 INFO Images list length is 316
+2018-01-23 17:30:21,708 INFO Images list length is 316
+2018-01-23 17:30:21,708 INFO Images list length is 316
+2018-01-23 17:30:21,708 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd183143/output" has been created.
+2018-01-23 17:30:21,708 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd183143/output" has been created.
+2018-01-23 17:30:21,708 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/hd183143/output" has been created.
+2018-01-23 17:30:22,144 INFO Images list has been created
+2018-01-23 17:30:22,144 INFO Images list has been created
+2018-01-23 17:30:22,144 INFO Images list has been created
+2018-01-23 17:30:22,144 INFO Images list length is 316
+2018-01-23 17:30:22,144 INFO Images list length is 316
+2018-01-23 17:30:22,144 INFO Images list length is 316
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,147 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,147 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,147 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,147 WARNING Lenght (79) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:30:22,148 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,148 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,148 WARNING The remaining files will be skipped
+2018-01-23 17:30:22,148 INFO Stack lists have been created
+2018-01-23 17:30:22,148 INFO Stack lists have been created
+2018-01-23 17:30:22,148 INFO Stack lists have been created
+2018-01-23 17:30:22,148 INFO Processing stack P1_1.fits started
+2018-01-23 17:30:22,148 INFO Processing stack P1_1.fits started
+2018-01-23 17:30:22,148 INFO Processing stack P1_1.fits started
+2018-01-23 17:30:22,935 INFO Processing stack P1_1.fits finished
+2018-01-23 17:30:22,935 INFO Processing stack P1_1.fits finished
+2018-01-23 17:30:22,935 INFO Processing stack P1_1.fits finished
+2018-01-23 17:30:22,948 INFO Saving stack P1_1.fits finished
+2018-01-23 17:30:22,948 INFO Saving stack P1_1.fits finished
+2018-01-23 17:30:22,948 INFO Saving stack P1_1.fits finished
+2018-01-23 17:30:22,950 INFO Processing stack P1_2.fits started
+2018-01-23 17:30:22,950 INFO Processing stack P1_2.fits started
+2018-01-23 17:30:22,950 INFO Processing stack P1_2.fits started
+2018-01-23 17:30:23,721 INFO Processing stack P1_2.fits finished
+2018-01-23 17:30:23,721 INFO Processing stack P1_2.fits finished
+2018-01-23 17:30:23,721 INFO Processing stack P1_2.fits finished
+2018-01-23 17:30:23,732 INFO Saving stack P1_2.fits finished
+2018-01-23 17:30:23,732 INFO Saving stack P1_2.fits finished
+2018-01-23 17:30:23,732 INFO Saving stack P1_2.fits finished
+2018-01-23 17:30:23,734 INFO Processing stack P1_3.fits started
+2018-01-23 17:30:23,734 INFO Processing stack P1_3.fits started
+2018-01-23 17:30:23,734 INFO Processing stack P1_3.fits started
+2018-01-23 17:30:24,491 INFO Processing stack P1_3.fits finished
+2018-01-23 17:30:24,491 INFO Processing stack P1_3.fits finished
+2018-01-23 17:30:24,491 INFO Processing stack P1_3.fits finished
+2018-01-23 17:30:24,502 INFO Saving stack P1_3.fits finished
+2018-01-23 17:30:24,502 INFO Saving stack P1_3.fits finished
+2018-01-23 17:30:24,502 INFO Saving stack P1_3.fits finished
+2018-01-23 17:30:24,503 INFO Processing stack P1_4.fits started
+2018-01-23 17:30:24,503 INFO Processing stack P1_4.fits started
+2018-01-23 17:30:24,503 INFO Processing stack P1_4.fits started
+2018-01-23 17:30:25,261 INFO Processing stack P1_4.fits finished
+2018-01-23 17:30:25,261 INFO Processing stack P1_4.fits finished
+2018-01-23 17:30:25,261 INFO Processing stack P1_4.fits finished
+2018-01-23 17:30:25,272 INFO Saving stack P1_4.fits finished
+2018-01-23 17:30:25,272 INFO Saving stack P1_4.fits finished
+2018-01-23 17:30:25,272 INFO Saving stack P1_4.fits finished
+2018-01-23 17:30:25,273 INFO Processing stack P1_5.fits started
+2018-01-23 17:30:25,273 INFO Processing stack P1_5.fits started
+2018-01-23 17:30:25,273 INFO Processing stack P1_5.fits started
+2018-01-23 17:30:26,022 INFO Processing stack P1_5.fits finished
+2018-01-23 17:30:26,022 INFO Processing stack P1_5.fits finished
+2018-01-23 17:30:26,022 INFO Processing stack P1_5.fits finished
+2018-01-23 17:30:26,033 INFO Saving stack P1_5.fits finished
+2018-01-23 17:30:26,033 INFO Saving stack P1_5.fits finished
+2018-01-23 17:30:26,033 INFO Saving stack P1_5.fits finished
+2018-01-23 17:30:26,035 INFO Processing stack P1_6.fits started
+2018-01-23 17:30:26,035 INFO Processing stack P1_6.fits started
+2018-01-23 17:30:26,035 INFO Processing stack P1_6.fits started
+2018-01-23 17:30:26,792 INFO Processing stack P1_6.fits finished
+2018-01-23 17:30:26,792 INFO Processing stack P1_6.fits finished
+2018-01-23 17:30:26,792 INFO Processing stack P1_6.fits finished
+2018-01-23 17:30:26,803 INFO Saving stack P1_6.fits finished
+2018-01-23 17:30:26,803 INFO Saving stack P1_6.fits finished
+2018-01-23 17:30:26,803 INFO Saving stack P1_6.fits finished
+2018-01-23 17:30:26,804 INFO Processing stack P1_7.fits started
+2018-01-23 17:30:26,804 INFO Processing stack P1_7.fits started
+2018-01-23 17:30:26,804 INFO Processing stack P1_7.fits started
+2018-01-23 17:30:27,575 INFO Processing stack P1_7.fits finished
+2018-01-23 17:30:27,575 INFO Processing stack P1_7.fits finished
+2018-01-23 17:30:27,575 INFO Processing stack P1_7.fits finished
+2018-01-23 17:30:27,586 INFO Saving stack P1_7.fits finished
+2018-01-23 17:30:27,586 INFO Saving stack P1_7.fits finished
+2018-01-23 17:30:27,586 INFO Saving stack P1_7.fits finished
+2018-01-23 17:30:27,587 INFO Processing stack P1_8.fits started
+2018-01-23 17:30:27,587 INFO Processing stack P1_8.fits started
+2018-01-23 17:30:27,587 INFO Processing stack P1_8.fits started
+2018-01-23 17:30:28,347 INFO Processing stack P1_8.fits finished
+2018-01-23 17:30:28,347 INFO Processing stack P1_8.fits finished
+2018-01-23 17:30:28,347 INFO Processing stack P1_8.fits finished
+2018-01-23 17:30:28,358 INFO Saving stack P1_8.fits finished
+2018-01-23 17:30:28,358 INFO Saving stack P1_8.fits finished
+2018-01-23 17:30:28,358 INFO Saving stack P1_8.fits finished
+2018-01-23 17:30:28,359 INFO Processing stack P1_9.fits started
+2018-01-23 17:30:28,359 INFO Processing stack P1_9.fits started
+2018-01-23 17:30:28,359 INFO Processing stack P1_9.fits started
+2018-01-23 17:30:29,192 INFO Processing stack P1_9.fits finished
+2018-01-23 17:30:29,192 INFO Processing stack P1_9.fits finished
+2018-01-23 17:30:29,192 INFO Processing stack P1_9.fits finished
+2018-01-23 17:30:29,202 INFO Saving stack P1_9.fits finished
+2018-01-23 17:30:29,202 INFO Saving stack P1_9.fits finished
+2018-01-23 17:30:29,202 INFO Saving stack P1_9.fits finished
+2018-01-23 17:30:29,204 INFO Processing stack P3_1.fits started
+2018-01-23 17:30:29,204 INFO Processing stack P3_1.fits started
+2018-01-23 17:30:29,204 INFO Processing stack P3_1.fits started
+2018-01-23 17:30:29,957 INFO Processing stack P3_1.fits finished
+2018-01-23 17:30:29,957 INFO Processing stack P3_1.fits finished
+2018-01-23 17:30:29,957 INFO Processing stack P3_1.fits finished
+2018-01-23 17:30:29,968 INFO Saving stack P3_1.fits finished
+2018-01-23 17:30:29,968 INFO Saving stack P3_1.fits finished
+2018-01-23 17:30:29,968 INFO Saving stack P3_1.fits finished
+2018-01-23 17:30:29,969 INFO Processing stack P3_2.fits started
+2018-01-23 17:30:29,969 INFO Processing stack P3_2.fits started
+2018-01-23 17:30:29,969 INFO Processing stack P3_2.fits started
+2018-01-23 17:30:30,725 INFO Processing stack P3_2.fits finished
+2018-01-23 17:30:30,725 INFO Processing stack P3_2.fits finished
+2018-01-23 17:30:30,725 INFO Processing stack P3_2.fits finished
+2018-01-23 17:30:30,736 INFO Saving stack P3_2.fits finished
+2018-01-23 17:30:30,736 INFO Saving stack P3_2.fits finished
+2018-01-23 17:30:30,736 INFO Saving stack P3_2.fits finished
+2018-01-23 17:30:30,737 INFO Processing stack P3_3.fits started
+2018-01-23 17:30:30,737 INFO Processing stack P3_3.fits started
+2018-01-23 17:30:30,737 INFO Processing stack P3_3.fits started
+2018-01-23 17:30:31,496 INFO Processing stack P3_3.fits finished
+2018-01-23 17:30:31,496 INFO Processing stack P3_3.fits finished
+2018-01-23 17:30:31,496 INFO Processing stack P3_3.fits finished
+2018-01-23 17:30:31,506 INFO Saving stack P3_3.fits finished
+2018-01-23 17:30:31,506 INFO Saving stack P3_3.fits finished
+2018-01-23 17:30:31,506 INFO Saving stack P3_3.fits finished
+2018-01-23 17:30:31,508 INFO Processing stack P3_4.fits started
+2018-01-23 17:30:31,508 INFO Processing stack P3_4.fits started
+2018-01-23 17:30:31,508 INFO Processing stack P3_4.fits started
+2018-01-23 17:30:32,261 INFO Processing stack P3_4.fits finished
+2018-01-23 17:30:32,261 INFO Processing stack P3_4.fits finished
+2018-01-23 17:30:32,261 INFO Processing stack P3_4.fits finished
+2018-01-23 17:30:32,271 INFO Saving stack P3_4.fits finished
+2018-01-23 17:30:32,271 INFO Saving stack P3_4.fits finished
+2018-01-23 17:30:32,271 INFO Saving stack P3_4.fits finished
+2018-01-23 17:30:32,272 INFO Processing stack P3_5.fits started
+2018-01-23 17:30:32,272 INFO Processing stack P3_5.fits started
+2018-01-23 17:30:32,272 INFO Processing stack P3_5.fits started
+2018-01-23 17:30:33,027 INFO Processing stack P3_5.fits finished
+2018-01-23 17:30:33,027 INFO Processing stack P3_5.fits finished
+2018-01-23 17:30:33,027 INFO Processing stack P3_5.fits finished
+2018-01-23 17:30:33,038 INFO Saving stack P3_5.fits finished
+2018-01-23 17:30:33,038 INFO Saving stack P3_5.fits finished
+2018-01-23 17:30:33,038 INFO Saving stack P3_5.fits finished
+2018-01-23 17:30:33,040 INFO Processing stack P3_6.fits started
+2018-01-23 17:30:33,040 INFO Processing stack P3_6.fits started
+2018-01-23 17:30:33,040 INFO Processing stack P3_6.fits started
+2018-01-23 17:30:33,794 INFO Processing stack P3_6.fits finished
+2018-01-23 17:30:33,794 INFO Processing stack P3_6.fits finished
+2018-01-23 17:30:33,794 INFO Processing stack P3_6.fits finished
+2018-01-23 17:30:33,805 INFO Saving stack P3_6.fits finished
+2018-01-23 17:30:33,805 INFO Saving stack P3_6.fits finished
+2018-01-23 17:30:33,805 INFO Saving stack P3_6.fits finished
+2018-01-23 17:30:33,806 INFO Processing stack P3_7.fits started
+2018-01-23 17:30:33,806 INFO Processing stack P3_7.fits started
+2018-01-23 17:30:33,806 INFO Processing stack P3_7.fits started
+2018-01-23 17:30:34,604 INFO Processing stack P3_7.fits finished
+2018-01-23 17:30:34,604 INFO Processing stack P3_7.fits finished
+2018-01-23 17:30:34,604 INFO Processing stack P3_7.fits finished
+2018-01-23 17:30:34,615 INFO Saving stack P3_7.fits finished
+2018-01-23 17:30:34,615 INFO Saving stack P3_7.fits finished
+2018-01-23 17:30:34,615 INFO Saving stack P3_7.fits finished
+2018-01-23 17:30:34,616 INFO Processing stack P3_8.fits started
+2018-01-23 17:30:34,616 INFO Processing stack P3_8.fits started
+2018-01-23 17:30:34,616 INFO Processing stack P3_8.fits started
+2018-01-23 17:30:35,429 INFO Processing stack P3_8.fits finished
+2018-01-23 17:30:35,429 INFO Processing stack P3_8.fits finished
+2018-01-23 17:30:35,429 INFO Processing stack P3_8.fits finished
+2018-01-23 17:30:35,447 INFO Saving stack P3_8.fits finished
+2018-01-23 17:30:35,447 INFO Saving stack P3_8.fits finished
+2018-01-23 17:30:35,447 INFO Saving stack P3_8.fits finished
+2018-01-23 17:30:35,449 INFO Processing stack P3_9.fits started
+2018-01-23 17:30:35,449 INFO Processing stack P3_9.fits started
+2018-01-23 17:30:35,449 INFO Processing stack P3_9.fits started
+2018-01-23 17:30:36,338 INFO Processing stack P3_9.fits finished
+2018-01-23 17:30:36,338 INFO Processing stack P3_9.fits finished
+2018-01-23 17:30:36,338 INFO Processing stack P3_9.fits finished
+2018-01-23 17:30:36,349 INFO Saving stack P3_9.fits finished
+2018-01-23 17:30:36,349 INFO Saving stack P3_9.fits finished
+2018-01-23 17:30:36,349 INFO Saving stack P3_9.fits finished
+2018-01-23 17:51:45,226 INFO Images list has been created
+2018-01-23 17:51:45,226 INFO Images list has been created
+2018-01-23 17:51:45,226 INFO Images list has been created
+2018-01-23 17:51:45,226 INFO Images list has been created
+2018-01-23 17:51:45,226 INFO Images list length is 200
+2018-01-23 17:51:45,226 INFO Images list length is 200
+2018-01-23 17:51:45,226 INFO Images list length is 200
+2018-01-23 17:51:45,226 INFO Images list length is 200
+2018-01-23 17:51:45,226 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/vicyg/output" has been created.
+2018-01-23 17:51:45,226 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/vicyg/output" has been created.
+2018-01-23 17:51:45,226 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/vicyg/output" has been created.
+2018-01-23 17:51:45,226 INFO Directory "/home/pi/kolchoz/savarts/dane_suhora/2017-11-16/vicyg/output" has been created.
+2018-01-23 17:51:45,487 INFO Images list has been created
+2018-01-23 17:51:45,487 INFO Images list has been created
+2018-01-23 17:51:45,487 INFO Images list has been created
+2018-01-23 17:51:45,487 INFO Images list has been created
+2018-01-23 17:51:45,487 INFO Images list length is 200
+2018-01-23 17:51:45,487 INFO Images list length is 200
+2018-01-23 17:51:45,487 INFO Images list length is 200
+2018-01-23 17:51:45,487 INFO Images list length is 200
+2018-01-23 17:51:45,487 WARNING Lenght (50) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,487 WARNING Lenght (50) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,487 WARNING Lenght (50) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,487 WARNING Lenght (50) of P1 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING Lenght (50) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,488 WARNING Lenght (50) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,488 WARNING Lenght (50) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,488 WARNING Lenght (50) of P3 savart stack list is not a multiple of 8
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 WARNING The remaining files will be skipped
+2018-01-23 17:51:45,488 INFO Stack lists have been created
+2018-01-23 17:51:45,488 INFO Stack lists have been created
+2018-01-23 17:51:45,488 INFO Stack lists have been created
+2018-01-23 17:51:45,488 INFO Stack lists have been created
+2018-01-23 17:51:45,488 INFO Processing stack P1_1.fits started
+2018-01-23 17:51:45,488 INFO Processing stack P1_1.fits started
+2018-01-23 17:51:45,488 INFO Processing stack P1_1.fits started
+2018-01-23 17:51:45,488 INFO Processing stack P1_1.fits started
+2018-01-23 17:51:46,343 INFO Processing stack P1_1.fits finished
+2018-01-23 17:51:46,343 INFO Processing stack P1_1.fits finished
+2018-01-23 17:51:46,343 INFO Processing stack P1_1.fits finished
+2018-01-23 17:51:46,343 INFO Processing stack P1_1.fits finished
+2018-01-23 17:51:46,355 INFO Saving stack P1_1.fits finished
+2018-01-23 17:51:46,355 INFO Saving stack P1_1.fits finished
+2018-01-23 17:51:46,355 INFO Saving stack P1_1.fits finished
+2018-01-23 17:51:46,355 INFO Saving stack P1_1.fits finished
+2018-01-23 17:51:46,357 INFO Processing stack P1_2.fits started
+2018-01-23 17:51:46,357 INFO Processing stack P1_2.fits started
+2018-01-23 17:51:46,357 INFO Processing stack P1_2.fits started
+2018-01-23 17:51:46,357 INFO Processing stack P1_2.fits started
+2018-01-23 17:51:47,214 INFO Processing stack P1_2.fits finished
+2018-01-23 17:51:47,214 INFO Processing stack P1_2.fits finished
+2018-01-23 17:51:47,214 INFO Processing stack P1_2.fits finished
+2018-01-23 17:51:47,214 INFO Processing stack P1_2.fits finished
+2018-01-23 17:51:47,225 INFO Saving stack P1_2.fits finished
+2018-01-23 17:51:47,225 INFO Saving stack P1_2.fits finished
+2018-01-23 17:51:47,225 INFO Saving stack P1_2.fits finished
+2018-01-23 17:51:47,225 INFO Saving stack P1_2.fits finished
+2018-01-23 17:51:47,226 INFO Processing stack P1_3.fits started
+2018-01-23 17:51:47,226 INFO Processing stack P1_3.fits started
+2018-01-23 17:51:47,226 INFO Processing stack P1_3.fits started
+2018-01-23 17:51:47,226 INFO Processing stack P1_3.fits started
+2018-01-23 17:51:48,075 INFO Processing stack P1_3.fits finished
+2018-01-23 17:51:48,075 INFO Processing stack P1_3.fits finished
+2018-01-23 17:51:48,075 INFO Processing stack P1_3.fits finished
+2018-01-23 17:51:48,075 INFO Processing stack P1_3.fits finished
+2018-01-23 17:51:48,088 INFO Saving stack P1_3.fits finished
+2018-01-23 17:51:48,088 INFO Saving stack P1_3.fits finished
+2018-01-23 17:51:48,088 INFO Saving stack P1_3.fits finished
+2018-01-23 17:51:48,088 INFO Saving stack P1_3.fits finished
+2018-01-23 17:51:48,089 INFO Processing stack P1_4.fits started
+2018-01-23 17:51:48,089 INFO Processing stack P1_4.fits started
+2018-01-23 17:51:48,089 INFO Processing stack P1_4.fits started
+2018-01-23 17:51:48,089 INFO Processing stack P1_4.fits started
+2018-01-23 17:51:49,020 INFO Processing stack P1_4.fits finished
+2018-01-23 17:51:49,020 INFO Processing stack P1_4.fits finished
+2018-01-23 17:51:49,020 INFO Processing stack P1_4.fits finished
+2018-01-23 17:51:49,020 INFO Processing stack P1_4.fits finished
+2018-01-23 17:51:49,037 INFO Saving stack P1_4.fits finished
+2018-01-23 17:51:49,037 INFO Saving stack P1_4.fits finished
+2018-01-23 17:51:49,037 INFO Saving stack P1_4.fits finished
+2018-01-23 17:51:49,037 INFO Saving stack P1_4.fits finished
+2018-01-23 17:51:49,039 INFO Processing stack P1_5.fits started
+2018-01-23 17:51:49,039 INFO Processing stack P1_5.fits started
+2018-01-23 17:51:49,039 INFO Processing stack P1_5.fits started
+2018-01-23 17:51:49,039 INFO Processing stack P1_5.fits started
+2018-01-23 17:51:49,916 INFO Processing stack P1_5.fits finished
+2018-01-23 17:51:49,916 INFO Processing stack P1_5.fits finished
+2018-01-23 17:51:49,916 INFO Processing stack P1_5.fits finished
+2018-01-23 17:51:49,916 INFO Processing stack P1_5.fits finished
+2018-01-23 17:51:49,927 INFO Saving stack P1_5.fits finished
+2018-01-23 17:51:49,927 INFO Saving stack P1_5.fits finished
+2018-01-23 17:51:49,927 INFO Saving stack P1_5.fits finished
+2018-01-23 17:51:49,927 INFO Saving stack P1_5.fits finished
+2018-01-23 17:51:49,929 INFO Processing stack P1_6.fits started
+2018-01-23 17:51:49,929 INFO Processing stack P1_6.fits started
+2018-01-23 17:51:49,929 INFO Processing stack P1_6.fits started
+2018-01-23 17:51:49,929 INFO Processing stack P1_6.fits started
+2018-01-23 17:51:50,818 INFO Processing stack P1_6.fits finished
+2018-01-23 17:51:50,818 INFO Processing stack P1_6.fits finished
+2018-01-23 17:51:50,818 INFO Processing stack P1_6.fits finished
+2018-01-23 17:51:50,818 INFO Processing stack P1_6.fits finished
+2018-01-23 17:51:50,829 INFO Saving stack P1_6.fits finished
+2018-01-23 17:51:50,829 INFO Saving stack P1_6.fits finished
+2018-01-23 17:51:50,829 INFO Saving stack P1_6.fits finished
+2018-01-23 17:51:50,829 INFO Saving stack P1_6.fits finished
+2018-01-23 17:51:50,831 INFO Processing stack P3_1.fits started
+2018-01-23 17:51:50,831 INFO Processing stack P3_1.fits started
+2018-01-23 17:51:50,831 INFO Processing stack P3_1.fits started
+2018-01-23 17:51:50,831 INFO Processing stack P3_1.fits started
+2018-01-23 17:51:51,704 INFO Processing stack P3_1.fits finished
+2018-01-23 17:51:51,704 INFO Processing stack P3_1.fits finished
+2018-01-23 17:51:51,704 INFO Processing stack P3_1.fits finished
+2018-01-23 17:51:51,704 INFO Processing stack P3_1.fits finished
+2018-01-23 17:51:51,716 INFO Saving stack P3_1.fits finished
+2018-01-23 17:51:51,716 INFO Saving stack P3_1.fits finished
+2018-01-23 17:51:51,716 INFO Saving stack P3_1.fits finished
+2018-01-23 17:51:51,716 INFO Saving stack P3_1.fits finished
+2018-01-23 17:51:51,717 INFO Processing stack P3_2.fits started
+2018-01-23 17:51:51,717 INFO Processing stack P3_2.fits started
+2018-01-23 17:51:51,717 INFO Processing stack P3_2.fits started
+2018-01-23 17:51:51,717 INFO Processing stack P3_2.fits started
+2018-01-23 17:51:52,581 INFO Processing stack P3_2.fits finished
+2018-01-23 17:51:52,581 INFO Processing stack P3_2.fits finished
+2018-01-23 17:51:52,581 INFO Processing stack P3_2.fits finished
+2018-01-23 17:51:52,581 INFO Processing stack P3_2.fits finished
+2018-01-23 17:51:52,592 INFO Saving stack P3_2.fits finished
+2018-01-23 17:51:52,592 INFO Saving stack P3_2.fits finished
+2018-01-23 17:51:52,592 INFO Saving stack P3_2.fits finished
+2018-01-23 17:51:52,592 INFO Saving stack P3_2.fits finished
+2018-01-23 17:51:52,593 INFO Processing stack P3_3.fits started
+2018-01-23 17:51:52,593 INFO Processing stack P3_3.fits started
+2018-01-23 17:51:52,593 INFO Processing stack P3_3.fits started
+2018-01-23 17:51:52,593 INFO Processing stack P3_3.fits started
+2018-01-23 17:51:53,466 INFO Processing stack P3_3.fits finished
+2018-01-23 17:51:53,466 INFO Processing stack P3_3.fits finished
+2018-01-23 17:51:53,466 INFO Processing stack P3_3.fits finished
+2018-01-23 17:51:53,466 INFO Processing stack P3_3.fits finished
+2018-01-23 17:51:53,477 INFO Saving stack P3_3.fits finished
+2018-01-23 17:51:53,477 INFO Saving stack P3_3.fits finished
+2018-01-23 17:51:53,477 INFO Saving stack P3_3.fits finished
+2018-01-23 17:51:53,477 INFO Saving stack P3_3.fits finished
+2018-01-23 17:51:53,479 INFO Processing stack P3_4.fits started
+2018-01-23 17:51:53,479 INFO Processing stack P3_4.fits started
+2018-01-23 17:51:53,479 INFO Processing stack P3_4.fits started
+2018-01-23 17:51:53,479 INFO Processing stack P3_4.fits started
+2018-01-23 17:51:54,361 INFO Processing stack P3_4.fits finished
+2018-01-23 17:51:54,361 INFO Processing stack P3_4.fits finished
+2018-01-23 17:51:54,361 INFO Processing stack P3_4.fits finished
+2018-01-23 17:51:54,361 INFO Processing stack P3_4.fits finished
+2018-01-23 17:51:54,371 INFO Saving stack P3_4.fits finished
+2018-01-23 17:51:54,371 INFO Saving stack P3_4.fits finished
+2018-01-23 17:51:54,371 INFO Saving stack P3_4.fits finished
+2018-01-23 17:51:54,371 INFO Saving stack P3_4.fits finished
+2018-01-23 17:51:54,373 INFO Processing stack P3_5.fits started
+2018-01-23 17:51:54,373 INFO Processing stack P3_5.fits started
+2018-01-23 17:51:54,373 INFO Processing stack P3_5.fits started
+2018-01-23 17:51:54,373 INFO Processing stack P3_5.fits started
+2018-01-23 17:51:55,207 INFO Processing stack P3_5.fits finished
+2018-01-23 17:51:55,207 INFO Processing stack P3_5.fits finished
+2018-01-23 17:51:55,207 INFO Processing stack P3_5.fits finished
+2018-01-23 17:51:55,207 INFO Processing stack P3_5.fits finished
+2018-01-23 17:51:55,218 INFO Saving stack P3_5.fits finished
+2018-01-23 17:51:55,218 INFO Saving stack P3_5.fits finished
+2018-01-23 17:51:55,218 INFO Saving stack P3_5.fits finished
+2018-01-23 17:51:55,218 INFO Saving stack P3_5.fits finished
+2018-01-23 17:51:55,219 INFO Processing stack P3_6.fits started
+2018-01-23 17:51:55,219 INFO Processing stack P3_6.fits started
+2018-01-23 17:51:55,219 INFO Processing stack P3_6.fits started
+2018-01-23 17:51:55,219 INFO Processing stack P3_6.fits started
+2018-01-23 17:51:56,054 INFO Processing stack P3_6.fits finished
+2018-01-23 17:51:56,054 INFO Processing stack P3_6.fits finished
+2018-01-23 17:51:56,054 INFO Processing stack P3_6.fits finished
+2018-01-23 17:51:56,054 INFO Processing stack P3_6.fits finished
+2018-01-23 17:51:56,065 INFO Saving stack P3_6.fits finished
+2018-01-23 17:51:56,065 INFO Saving stack P3_6.fits finished
+2018-01-23 17:51:56,065 INFO Saving stack P3_6.fits finished
+2018-01-23 17:51:56,065 INFO Saving stack P3_6.fits finished

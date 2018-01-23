@@ -1,8 +1,10 @@
 from src.pipeline.base import PipelineBase
 from src.utils.model import Configuration, Image, SavartCounts, SavartsPair
+from src.utils.calculate_stokes import get_stokes
 
 import os
 import math
+import argparse
 import numpy as np
 from glob import glob
 import matplotlib.pyplot as plt
@@ -144,8 +146,8 @@ class Savartphot(PipelineBase):
         return images_list
 
 
-    def _make_apertures(self, image, image_stars_coordinates, data_shape):
-
+    def _create_apertures(self, image, image_stars_coordinates, data_shape):
+        self.info('Creating apertures started')
         apertures = []
         sigma_values_table = []
         sigma_value = namedtuple('sigma_value', ['mean', 'median', 'std'])
@@ -159,6 +161,9 @@ class Savartphot(PipelineBase):
                 sigma=self.config_section.get('sigma_clipped_sigma'),
                 iters=self.config_section.get('sigma_clipped_iters'))
 
+            self.info('Sigma clipped stats: mean={}, median={}, std={}'.format(
+                mean, median, std))
+
             if (self.config_section.get('calculate_center') or 
             self.config_section.get('calculate_aperture')):
 
@@ -170,14 +175,19 @@ class Savartphot(PipelineBase):
                             star_properties['ycentroid'].value)
             else:
                 position = image_stars_coordinates[i]
+                self.info(
+                    'Calculate center is off, original coordinates have been used')
+                self.info('Coordinates={}'.format(position))
 
             if self.config_section.get('calculate_aperture'):
+                self.info('Calculating apertures has been started')
                 a = star_properties['semimajor_axis_sigma'] * self.config_section.get(
                     'r_aperture_multi')
                 b = star_properties['semiminor_axis_sigma'] * self.config_section.get(
                     'r_aperture_multi')
                 theta = star_properties['orientation']
-
+                self.info('Found aperture parameters: a={}, b={}, theta={}'.format(
+                    a, b, theta))
                 aperture = EllipticalAperture(position, a=a.value, b=b.value, theta=theta.value)
                 annulus = EllipticalAnnulus(position,
                                             a_in=a.value+self.config_section.get(
@@ -187,8 +197,10 @@ class Savartphot(PipelineBase):
                                             b_out=b.value+self.config_section.get(
                                                 'r_annulus_out'),
                                             theta=theta.value)
-                print(('i:{}, a:{}, b:{}, pos:{},{}').format(i+1, a, b, *position))
             else:
+                self.info('Aperture calculate is off')
+                self.info('Aperture paratmeters from configuration file have been used')
+
                 aperture = CircularAperture(position, r=self.config_section.get('r_aperture'))
                 annulus = CircularAnnulus(position,
                                           r_in=self.config_section.get(
@@ -205,17 +217,18 @@ class Savartphot(PipelineBase):
 
 
     def _create_mask(self, star_coo, data_shape):
+        self.info('Creating masks started')
         y, x = np.ogrid[-star_coo[1]-1:data_shape[0]-star_coo[1]-1,
                         -star_coo[0]-1:data_shape[1]-star_coo[0]-1]
         mask = x * x + y * y <= self.config_section.get('r_mask') ** 2
         mask_arr = np.full(data_shape, True, dtype=bool)
         mask_arr[mask] = False
-
+        self.info('Creating masks finished')
         return mask_arr
 
 
     def _find_star_properties(self, data, median, mask, star_coo):
-
+            self.info('Finding star properties started')
             sigma = self.config_section.get('fwhm') * gaussian_fwhm_to_sigma 
             kernel = Gaussian2DKernel(sigma,
              x_size=self.config_section.get('kernel_x'),
@@ -232,14 +245,20 @@ class Savartphot(PipelineBase):
                          'semimajor_axis_sigma', 'semiminor_axis_sigma',
                          'orientation'])
 
+            self.info('Found star properties')
+            self.info(properties)
+
             if len(properties) > 1:
+                self.warning('More than one object has been found')
                 properties = self._find_nearest_object(star_coo, properties, data.shape)
                 return properties
             else:
+                self.info('Finding star properties finished')
                 return properties[0]
 
 
     def _find_nearest_object(self, star_coo, properties, data_shape):
+        self.info('Finding nearest obejct started')
         min_dist = max(data_shape)
         min_dist_id = 0
         x, y = star_coo
@@ -251,6 +270,8 @@ class Savartphot(PipelineBase):
             if dist < min_dist:
                 min_dist = dist
                 min_dist_id = prop['id']
+        self.info('Neares object id={}'.format(min_dist_id))
+        self.info('Finding nearest obejct finished')
 
         return properties[min_dist_id - 1]
 
@@ -272,7 +293,7 @@ class Savartphot(PipelineBase):
 
 
     def _make_image_plot(self, data, apertures, im_name):
-
+        self.info('Image plot making has been started')
         norm = ImageNormalize(data, interval=ZScaleInterval(), 
                       stretch=LinearStretch())
 
@@ -294,9 +315,10 @@ class Savartphot(PipelineBase):
         plt.savefig(os.path.join(self.output_directory, im_name+'.png'),
          dpi=self.config_section.get('plot_images_dpi'))
         plt.clf()
+        self.info('Image plot making has been finished')
 
     def _make_polarimetry_plot(self, data):  
-
+        self.info('Polarimetry results plot making has been started')
         for i, name in zip([1, 3], ['pd', 'pa']):
             fig = plt.figure()
             fig.set_size_inches(
@@ -319,10 +341,11 @@ class Savartphot(PipelineBase):
                 self.config_section.get('{}_file_name'.format(name))),
             dpi=self.config_section.get('plot_polarimetry_dpi'))
             plt.clf()
+            self.info('Polarimetry results plot making has been finished')
 
 
     def _save_image_output(self, out_table, output_name):
-
+        self.info('Image ouput saving has been started')
         out_table = vstack(out_table)
         out_table.add_column(
             Column(name='COUNTS', data=out_table[
@@ -335,12 +358,14 @@ class Savartphot(PipelineBase):
 
         out_table.write(os.path.join(self.output_directory, output_name),
             format='ascii', delimiter=',', overwrite=True)
+        self.info('Image ouput saving has been finished')
 
 
-    def make_phot(self):
-
+    def process(self):
+        self.info('Processing has been started')
         for image in self.images_list:
-            apertures, sigma_values_table = self._make_apertures(
+            self.info('Processing image: {}'.format(image.name))
+            apertures, sigma_values_table = self._create_apertures(
                 image, self.stars_coordinates[image.savart],
                 image.shape)
 
@@ -355,14 +380,18 @@ class Savartphot(PipelineBase):
                                     table_names=['raw', 'bkg'])
 
                 if self.config_section.get('bkg_annulus'):
+                    self.info('Mean background value from annulus has been used.')
                     bkg_mean = phot_table['aperture_sum_bkg'] / aperture[1].area()
                     bkg_sum = bkg_mean * aperture[0].area()
+                    self.info('Mean background value\n {}'.format(bkg_mean))
                 else:
+                    self.info('Mean background value from mask \
+                        sigma clipped stats has been used.')
                     bkg_mean = sigma_value.median
                     bkg_sum = bkg_mean * aperture[0].area()
-                print(sigma_value)
-                print('ann: {:.2f}, mask: {}'.format(
-                    phot_table['aperture_sum_bkg'].quantity.value[0] / aperture[1].area(), sigma_value.median))
+                    self.info('Mean background value\n {}'.format(bkg_mean))
+
+                
                 final_sum = phot_table['aperture_sum_raw'] - bkg_sum
                 phot_table['residual_aperture_sum'] = final_sum
 
@@ -408,7 +437,7 @@ class Savartphot(PipelineBase):
 
 
     def _save_polarizaton_results(self):
-
+        self.info('Saving polarization results have been started')
         output_table = []
         savart1_tab, savart2_tab = self._create_savarts_tables()
 
@@ -417,6 +446,10 @@ class Savartphot(PipelineBase):
             savart1_tab, savart2_tab = savart1_tab[:min_len], savart2_tab[:min_len]
 
         for savart1, savart2 in zip(savart1_tab, savart2_tab):
+            spark = get_stokes([savart1.counts1, savart1.counts2,
+                savart2.counts1, savart2.counts2])
+            print(spark['PD'], spark['PA'])
+            print()
             pair = SavartsPair(savart1, savart2)
             output_table.append([pair.jd, pair.pd, pair.pd_error, pair.pa, pair.pa_error])
 
@@ -429,3 +462,18 @@ class Savartphot(PipelineBase):
 
         if self.config_section.get('plot_polarimetry'):
             self._make_polarimetry_plot(np.array(output_table))
+        self.info('Saving polarization results have been finished')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('config', help='Configuration file path')
+    parser.add_argument('work_path', help='Files to process path')
+    parser.add_argument('coordinates_file', help='Stars coordinates file path')
+    parser.add_argument('output_directory', help='Output path')
+
+    args = parser.parse_args()
+
+
+    photometry = Savartphot(args.config, args.work_path,
+        args.coordinates_file, args.output_directory)
+    photometry.process()

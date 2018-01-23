@@ -1,4 +1,5 @@
 import numpy as np
+from collections import OrderedDict
 
 def get_stokes_3(I_i, sigmas, t, e, phi):
     if I_i.__len__() != 3:
@@ -183,7 +184,7 @@ def get_stokes(i, sigmas):
     sigma_IU = np.sqrt(abs(sigma_IU))
     sigma_QU = np.sqrt(abs(sigma_QU))
 
-    stokes = {}
+    stokes = OrderedDict()
     stokes['I'] = I
     stokes['Q'] = Q
     stokes['U'] = U
@@ -194,10 +195,12 @@ def get_stokes(i, sigmas):
     stokes['sigma_IU'] = sigma_IU
     stokes['sigma_QU'] = sigma_QU
 
-    stokes['PA'] = PA
     stokes['PD'] = PD
-    stokes['sigma_PA'] = sigma_PA
     stokes['sigma_PD'] = sigma_PD
+
+    stokes['PA'] = PA
+    stokes['sigma_PA'] = sigma_PA
+    
 
     u = U / I
     q = Q / I
@@ -229,11 +232,11 @@ def get_stokes(i, sigmas):
     sigma_PD2 = (dPD2_du * sigma_u) ** 2 + (dPD2_dq * sigma_q) ** 2#+ 2.0 * dPD2_du * dPD2_dq * sigma_qu ** 2
     sigma_PD2 = np.sqrt(abs(sigma_PD2)) * 100.0
     
-    stokes['PD2'] = PD2
-    stokes['q'] = q
-    stokes['u'] = u
-    stokes['sigma_PD2'] = sigma_PD2
-    stokes['sigma_q'] = sigma_q
-    stokes['sigma_u'] = sigma_u
+    # stokes['PD2'] = PD2
+    # stokes['q'] = q
+    # stokes['u'] = u
+    # stokes['sigma_PD2'] = sigma_PD2
+    # stokes['sigma_q'] = sigma_q
+    # stokes['sigma_u'] = sigma_u
 
     return stokes

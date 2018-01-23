@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from src.pipeline.base import PipelineBase
 from src.utils.model import Configuration, Image, SavartCounts, SavartsPair
 from src.utils.calculate_stokes import get_stokes
@@ -8,6 +10,7 @@ import argparse
 import numpy as np
 from glob import glob
 import matplotlib.pyplot as plt
+import warnings
 from matplotlib.colors import LogNorm
 from astropy.io import fits
 from astropy.convolution import Gaussian2DKernel
@@ -16,17 +19,19 @@ from photutils import source_properties, properties_table
 from photutils import CircularAperture, EllipticalAperture
 from photutils import (CircularAnnulus, EllipticalAnnulus,
                        detect_sources, aperture_photometry)
+from astropy.utils.exceptions import AstropyWarning
 from astropy.stats import gaussian_fwhm_to_sigma, sigma_clipped_stats
 from astropy.table import hstack, vstack, Column
 from astropy.visualization import astropy_mpl_style
 from astropy.visualization import (ImageNormalize, MinMaxInterval,
                                    LinearStretch, ZScaleInterval)
+warnings.simplefilter('ignore', category=AstropyWarning)
 plt.style.use(astropy_mpl_style)
 
 class Savartphot(PipelineBase):
     def __init__(self, config, work_path, coordinates_file, output_directory,
      log_file_name='savartphot'):
-        super(Savartphot, self).__init__(log_file_name, None)
+        super(Savartphot, self).__init__(log_file_name, output_directory, None)
         self.config = Configuration(config, [
             ('savarts_to_process', str),
             ('results_file_name', str),
@@ -287,7 +292,7 @@ class Savartphot(PipelineBase):
             (phot_table['residual_aperture_sum'] / effective_gain) +
             (aperture[0].area() * bkg_mean ** 2) +
             ((aperture[0].area() ** 2 * bkg_mean ** 2) /
-             aperture[1].area()))
+             aperture[1].area())) / 100.
 
         return err
 
@@ -319,7 +324,7 @@ class Savartphot(PipelineBase):
 
     def _make_polarimetry_plot(self, data):  
         self.info('Polarimetry results plot making has been started')
-        for i, name in zip([1, 3], ['pd', 'pa']):
+        for i, name in zip([10, 12], ['pd', 'pa']):
             fig = plt.figure()
             fig.set_size_inches(
                 int(x) for x in self.config_section.get('plot_size_inches').split(','))
@@ -447,13 +452,19 @@ class Savartphot(PipelineBase):
 
         for savart1, savart2 in zip(savart1_tab, savart2_tab):
             spark = get_stokes([savart1.counts1, savart1.counts2,
-                savart2.counts1, savart2.counts2])
-            print(spark['PD'], spark['PA'])
-            print()
-            pair = SavartsPair(savart1, savart2)
-            output_table.append([pair.jd, pair.pd, pair.pd_error, pair.pa, pair.pa_error])
+                savart2.counts1, savart2.counts2],
+                [savart1.error1, savart1.error2,
+                savart2.error1, savart2.error2])
 
-        output_header = "#JD PD PD_error PA PA_error"
+            # classic stokes calculation
+            pair = SavartsPair(savart1, savart2)
+            # output_table.append([pair.jd, pair.pd, pair.pd_error, pair.pa, pair.pa_error])
+
+            # spark axon
+            output_table.append([pair.jd] + [v for v in spark.values()])
+
+        output_header = 'JD' + ' '.join([k for k in spark.keys()])
+
         np.savetxt(os.path.join(self.output_directory,
             self.config_section.get('results_file_name')+
             self.config_section.get('results_file_ext')),
@@ -464,16 +475,3 @@ class Savartphot(PipelineBase):
             self._make_polarimetry_plot(np.array(output_table))
         self.info('Saving polarization results have been finished')
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('config', help='Configuration file path')
-    parser.add_argument('work_path', help='Files to process path')
-    parser.add_argument('coordinates_file', help='Stars coordinates file path')
-    parser.add_argument('output_directory', help='Output path')
-
-    args = parser.parse_args()
-
-
-    photometry = Savartphot(args.config, args.work_path,
-        args.coordinates_file, args.output_directory)
-    photometry.process()

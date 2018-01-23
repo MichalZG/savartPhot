@@ -1,6 +1,4 @@
-
 from src.utils.model import Configuration, Star
-
 from glob import glob
 import argparse
 from astropy.io import fits
@@ -26,7 +24,7 @@ class List_objects:
 
 
 	def create_stars_list(self):
-		files_list = self.create_files_list(self.work_dir)
+		files_list = self.create_files_list()
 
 		for file in files_list:
 			try:
@@ -59,19 +57,7 @@ class List_objects:
 
 	def show_objects(self):
 
-		self.create_stars_list(self.work_dir)
+		self.create_stars_list()
 
 		for _, star in self.stars_list.items():
 			print("{0}: {1}".format(star.name, len(star.files)))
-
-
-if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('config', help='Configuration file path')
-	parser.add_argument('work_path', help='Files to process path')
-	args = parser.parse_args()
-
-	listing = List_objects(args.config, args.work_path)
-	listing.show_objects()
-	listing.create_stars_list()
-

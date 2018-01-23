@@ -1,9 +1,9 @@
 import logging
+import os
 
-
-def get_logger(name, config_data):
+def get_logger(name, log_file_dir, config_data):
     logger = logging.getLogger(name)
-    handler = logging.FileHandler('var/logs/{}.log'.format(name))
+    handler = logging.FileHandler(os.path.join(log_file_dir, '{}.log'.format(name)))
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)

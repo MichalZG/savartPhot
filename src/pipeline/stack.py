@@ -12,7 +12,7 @@ from astropy.time import Time
 
 class Stack(PipelineBase):
 	def __init__(self, config, work_path, stack_size, output_directory, log_file_name='stack'):
-		super(Stack, self).__init__(log_file_name, None)
+		super(Stack, self).__init__(log_file_name, output_directory, None)
 		self.config = Configuration(config, [
 			('savarts_to_stack', str),
 			('pattern', str),
@@ -189,18 +189,4 @@ class Stack(PipelineBase):
 				stack_name = '{}_{}.fits'.format(savart_name, i+1)
 				self.info('Processing stack {} started'.format(stack_name))
 				self._create_stack(chunk, stack_name)
-				
-
-if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('config', help='Configuration file path')
-	parser.add_argument('work_path', help='Files to process directory')
-	parser.add_argument('stack_size', help='Number of files to stack')
-	parser.add_argument('output_directory', help='Output path')
-
-	args = parser.parse_args()
-
-
-	stacking = Stack(args.config, args.work_path, args.stack_size, args.output_directory)
-	stacking.process()
-
+			

@@ -1,0 +1,5 @@
+astropy == 2.0.3
+ccdproc == 1.3.0
+matplotlib == 2.1.1
+numpy == 1.14.0
+photutils == 0.4

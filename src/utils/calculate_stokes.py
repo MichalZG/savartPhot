@@ -198,7 +198,7 @@ def get_stokes(i, sigmas):
     stokes['PD'] = PD
     stokes['sigma_PD'] = sigma_PD
 
-    stokes['PA'] = PA
+    stokes['PA'] = abs(PA)
     stokes['sigma_PA'] = sigma_PA
     
 

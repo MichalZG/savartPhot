@@ -281,7 +281,7 @@ class Savartphot(PipelineBase):
         return properties[min_dist_id - 1]
 
 
-    def _calc_phot_error(self, hdr, aperture, phot_table, bkgflux_table, bkg_mean):
+    def _calc_phot_error(self, hdr, aperture, phot_table, bkgflux_table, bkg_std):
 
         try:
             effective_gain = float(hdr[self.config_section.get('gain_key')])
@@ -290,9 +290,9 @@ class Savartphot(PipelineBase):
 
         err = math.sqrt(
             (phot_table['residual_aperture_sum'] / effective_gain) +
-            (aperture[0].area() * bkg_mean ** 2) +
-            ((aperture[0].area() ** 2 * bkg_mean ** 2) /
-             aperture[1].area())) / 100.
+            (aperture[0].area() * bkg_std ** 2) +
+            ((aperture[0].area() ** 2 * bkg_std ** 2) /
+             aperture[1].area())) 
 
         return err
 
@@ -401,7 +401,7 @@ class Savartphot(PipelineBase):
                 phot_table['residual_aperture_sum'] = final_sum
 
                 final_sum_error = self._calc_phot_error(image.hdr, aperture,
-                            phot_table, bkgflux_table, bkg_mean)
+                            phot_table, bkgflux_table, sigma_value.std)
 
                 phot_table.add_column(
                     Column(name='residual_aperture_err_sum',

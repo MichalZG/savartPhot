@@ -2,3 +2,4 @@
 PD_check.ipynb
 __pycache__
 *.pyc
+/var/logs/*

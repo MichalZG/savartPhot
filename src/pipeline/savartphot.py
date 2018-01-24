@@ -324,7 +324,7 @@ class Savartphot(PipelineBase):
 
     def _make_polarimetry_plot(self, data):  
         self.info('Polarimetry results plot making has been started')
-        for i, name in zip([10, 12], ['pd', 'pa']):
+        for i, name, unit in zip([10, 12], ['pd', 'pa'], ['%', 'deg']):
             fig = plt.figure()
             fig.set_size_inches(
                 int(x) for x in self.config_section.get('plot_size_inches').split(','))
@@ -339,7 +339,7 @@ class Savartphot(PipelineBase):
                 label='std={:.2f}'.format(np.std(data[:,i])),
                 linestyle='--', c='k')
             ax.set_xlabel('JD')
-            ax.set_ylabel('{}[%]'.format(name.upper()))
+            ax.set_ylabel('{}[{}]'.format(name.upper(), unit))
             plt.legend(loc='upper right')
 
             plt.savefig(os.path.join(self.output_directory,

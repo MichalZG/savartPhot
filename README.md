@@ -16,13 +16,18 @@ python run_list_objects.py /home/pi/Programs/python-programs/savartPhot/var/pipe
 python run_stack.py /home/pi/Programs/python-programs/savartPhot/var/pipeline_config_files/config_stack.cfg /home/pi/savarts/dane_suhora/2017-11-16/hd204827/ 8 /home/pi/savarts/dane_suhora/2017-11-16/hd204827/output
 
 * photometry need coordinate file of stars, where y1 > y2 !
+
 P1 x1 y1 x2 y2
-P3 x1 y1 x2 y2
+
+P3 x1 y1 x2 y2\\
 
 example:
+
 P1 544 233 450 245
+
 P3 566 344 477 344
 
+* run photometry
 python run_savart_phot.py /home/pi/Programs/python-programs/savartPhot/var/pipeline_config_files/config_savartphot.cfg /home/pi/savarts/dane_suhora/2017-11-16/hd204827/output/ /home/pi/savarts/dane_suhora/2017-11-16/hd204827/coo.dat /home/pi/savarts/dane_suhora/2017-11-16/hd204827/phot_output/
 
 

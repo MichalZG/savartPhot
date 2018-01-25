@@ -14,13 +14,13 @@ class Stack(PipelineBase):
 	def __init__(self, config, work_path, stack_size, output_directory, log_file_name='stack'):
 		super(Stack, self).__init__(log_file_name, output_directory, None)
 		self.config = Configuration(config, [
-			('savarts_to_stack', str),
+			('savarts_to_process', str),
 			('pattern', str),
 			('datetime_key', str),
 			('jd_key', str),
 			('filter_key', str),
 			('object_key', str)])
-		self.config_section = self.config.get_section('stack')
+		self.config_section = self.config.get_section('configuration')
 
 		if not self.config_section:
 			raise ValueError('Configuration file is not correct.')
@@ -108,8 +108,8 @@ class Stack(PipelineBase):
 		stack_hdr['JDEND'] = end_im.jd
 		mid_datetime, mid_jd = self._calculate_mid_time(start_im, end_im)
 
-		stack_hdr['DATETIME'] = mid_datetime
-		stack_hdr['JD'] = mid_jd
+		stack_hdr[self.config_section.get('datetime_key')] = mid_datetime
+		stack_hdr[self.config_section.get('jd_key')] = mid_jd
 
 		stack_hdr['IMNUM'] = len(images_list)
 		stack_hdr['FILTER'] = '-'.join([start_im.savart, start_im.filter_color])
@@ -177,12 +177,12 @@ class Stack(PipelineBase):
 
 	def process(self):
 
-		if not self.config_section.get('savarts_to_stack'):
+		if not self.config_section.get('savarts_to_process'):
 			self.error('No savarts to stack in configuration file')
 			raise ValueError('No savarts to stack')
 
 		stack_lists = self._create_stack_lists(
-			self.config_section.get('savarts_to_stack').split(','))
+			self.config_section.get('savarts_to_process').split(','))
 
 		for savart_name, stack_list in stack_lists.items():
 			for i, chunk in enumerate(stack_list):

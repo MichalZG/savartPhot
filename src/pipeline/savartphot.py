@@ -30,7 +30,7 @@ plt.style.use(astropy_mpl_style)
 
 class Savartphot(PipelineBase):
     def __init__(self, config, work_path, coordinates_file, output_directory,
-     log_file_name='savartphot'):
+     log_file_name='savar_phot'):
         super(Savartphot, self).__init__(log_file_name, output_directory, None)
         self.config = Configuration(config, [
             ('savarts_to_process', str),
@@ -74,7 +74,7 @@ class Savartphot(PipelineBase):
             ('flux_type', str),
             ('flux_error_type', str)])
 
-        self.config_section = self.config.get_section('savartphot')
+        self.config_section = self.config.get_section('configuration')
 
         if not self.config_section:
             raise ValueError('Configuration file is not correct.')

@@ -9,8 +9,8 @@ class List_objects:
 	def __init__(self, config, work_dir):
 		self.config = Configuration(config, [
 			('pattern', str),
-			('name_key', str)])
-		self.config_section = self.config.get_section('list_object')
+			('object_key', str)])
+		self.config_section = self.config.get_section('configuration')
 		self.work_dir = work_dir
 		self.stars_list = {}
 
@@ -37,7 +37,7 @@ class List_objects:
 					self.stars_list["unknown"].files.append(file)
 
 			try:
-				name = hdr[self.config_section.get('name_key')]
+				name = hdr[self.config_section.get('object_key')]
 
 				if name in self.stars_list:
 					self.stars_list[name].files.append(file)

@@ -28,12 +28,16 @@ from astropy.visualization import (ImageNormalize, MinMaxInterval,
 warnings.simplefilter('ignore', category=AstropyWarning)
 plt.style.use(astropy_mpl_style)
 
+
 class Savartphot(PipelineBase):
     def __init__(self, config, work_path, coordinates_file, output_directory,
-     log_file_name='savar_phot'):
+                 log_file_name='savar_phot'):
         super(Savartphot, self).__init__(log_file_name, output_directory, None)
         self.config = Configuration(config, [
             ('savarts_to_process', str),
+            ('t', str),
+            ('e', str),
+            ('phi', str),
             ('results_file_name', str),
             ('results_file_ext', str),
             ('pd_file_name', str),
@@ -79,7 +83,14 @@ class Savartphot(PipelineBase):
         if not self.config_section:
             raise ValueError('Configuration file is not correct.')
 
-        self.savarts_to_process = self.config_section.get('savarts_to_process').split(',')
+        self.savarts_to_process = self.config_section.get(
+            'savarts_to_process').split(',')
+        self.t = list(float(i) for i in self.config_section.get(
+            't').split(','))
+        self.e = list(float(i) for i in self.config_section.get(
+            'e').split(','))
+        self.phi = list(float(i) for i in self.config_section.get(
+            'phi').split(','))
         self.coordinates_file = coordinates_file
         self.work_path = work_path
         self.stars_coordinates = self._load_stars_coordinates()
@@ -87,7 +98,6 @@ class Savartphot(PipelineBase):
         self.images_list = self._create_images_list(self.work_path)
         self._create_directory(self.output_directory)
         self.measurements = []
-
 
     def _create_directory(self, directory):
 
@@ -98,14 +108,13 @@ class Savartphot(PipelineBase):
             self.warning(
                 'Directory "{}" could not be created.'.format(directory))
 
-
     def _load_stars_coordinates(self):
 
         if not os.path.exists(self.coordinates_file):
             self.error('Coordinates file {} has not been found'.format(
                 self.coordinates_file))
             raise ValueError('Coordinates file has not been found')
-            
+
         try:
             coordinates_table = np.loadtxt(
                 self.coordinates_file, dtype=[('Savart', '<U5'),
@@ -123,33 +132,31 @@ class Savartphot(PipelineBase):
 
         return stars_coordinates
 
-
     def _create_images_list(self, work_dir):
 
         if not os.path.exists(work_dir):
             self.error('Directory {} has not been found'.format(work_dir))
             raise ValueError('Directory has not been found')
-        
+
         images_dirs_list = sorted(
             glob(os.path.join(work_dir, self.config_section.get('pattern'))))
-        
+
         if not images_dirs_list:
             raise ValueError('Empty images dirs list')
 
-        images_list = [] 
+        images_list = []
 
         for image_dir in images_dirs_list:
             image = Image(image_dir, self.config_section.get('datetime_key'),
-                                     self.config_section.get('jd_key'),
-                                     self.config_section.get('filter_key'),
-                                     self.config_section.get('object_key'))
+                          self.config_section.get('jd_key'),
+                          self.config_section.get('filter_key'),
+                          self.config_section.get('object_key'))
             images_list.append(image)
 
         self.info('Images list has been created')
         self.info('Images list length is {}'.format(len(images_list)))
 
         return images_list
-
 
     def _create_apertures(self, image, image_stars_coordinates, data_shape):
         self.info('Creating apertures started')
@@ -169,11 +176,11 @@ class Savartphot(PipelineBase):
             self.info('Sigma clipped stats: mean={}, median={}, std={}'.format(
                 mean, median, std))
 
-            if (self.config_section.get('calculate_center') or 
-            self.config_section.get('calculate_aperture')):
+            if (self.config_section.get('calculate_center') or
+                    self.config_section.get('calculate_aperture')):
 
                 star_properties = self._find_star_properties(np.copy(image.data), median,
-                 mask, image_stars_coordinates[i])
+                                                             mask, image_stars_coordinates[i])
 
             if self.config_section.get('calculate_center'):
                 position = (star_properties['xcentroid'].value,
@@ -193,74 +200,76 @@ class Savartphot(PipelineBase):
                 theta = star_properties['orientation']
                 self.info('Found aperture parameters: a={}, b={}, theta={}'.format(
                     a, b, theta))
-                aperture = EllipticalAperture(position, a=a.value, b=b.value, theta=theta.value)
+                aperture = EllipticalAperture(
+                    position, a=a.value, b=b.value, theta=theta.value)
                 annulus = EllipticalAnnulus(position,
-                                            a_in=a.value+self.config_section.get(
+                                            a_in=a.value + self.config_section.get(
                                                 'r_annulus_in'),
-                                            a_out=a.value+self.config_section.get(
+                                            a_out=a.value + self.config_section.get(
                                                 'r_annulus_out'),
-                                            b_out=b.value+self.config_section.get(
+                                            b_out=b.value + self.config_section.get(
                                                 'r_annulus_out'),
                                             theta=theta.value)
             else:
                 self.info('Aperture calculate is off')
-                self.info('Aperture paratmeters from configuration file have been used')
+                self.info(
+                    'Aperture paratmeters from configuration file have been used')
 
-                aperture = CircularAperture(position, r=self.config_section.get('r_aperture'))
+                aperture = CircularAperture(
+                    position, r=self.config_section.get('r_aperture'))
                 annulus = CircularAnnulus(position,
                                           r_in=self.config_section.get(
-                                            'r_aperture')+self.config_section.get(
-                                            'r_annulus_in'),
+                                              'r_aperture') + self.config_section.get(
+                                              'r_annulus_in'),
                                           r_out=self.config_section.get(
-                                            'r_aperture')+self.config_section.get(
-                                            'r_annulus_out'))
+                                              'r_aperture') + self.config_section.get(
+                                              'r_annulus_out'))
 
             apertures.append([aperture, annulus, std])
             sigma_values_table.append(sigma_value(mean, median, std))
 
         return apertures, sigma_values_table
 
-
     def _create_mask(self, star_coo, data_shape):
         self.info('Creating masks started')
-        y, x = np.ogrid[-star_coo[1]-1:data_shape[0]-star_coo[1]-1,
-                        -star_coo[0]-1:data_shape[1]-star_coo[0]-1]
+        y, x = np.ogrid[-star_coo[1] - 1:data_shape[0] - star_coo[1] - 1,
+                        -star_coo[0] - 1:data_shape[1] - star_coo[0] - 1]
         mask = x * x + y * y <= self.config_section.get('r_mask') ** 2
         mask_arr = np.full(data_shape, True, dtype=bool)
         mask_arr[mask] = False
         self.info('Creating masks finished')
         return mask_arr
 
-
     def _find_star_properties(self, data, median, mask, star_coo):
-            self.info('Finding star properties started')
-            sigma = self.config_section.get('fwhm') * gaussian_fwhm_to_sigma 
-            kernel = Gaussian2DKernel(sigma,
-             x_size=self.config_section.get('kernel_x'),
-             y_size=self.config_section.get('kernel_y'))
-            kernel.normalize()
-            data[mask] = 0
-            segm = detect_sources(data,
-                median*self.config_section.get('detect_threshold'),
-                npixels=self.config_section.get('npixels'),
-                filter_kernel=kernel)
-            properties = properties_table(
-                source_properties(data-np.uint64(median), segm),
-                columns=['id', 'xcentroid', 'ycentroid', 'source_sum',
-                         'semimajor_axis_sigma', 'semiminor_axis_sigma',
-                         'orientation'])
+        self.info('Finding star properties started')
+        sigma = self.config_section.get('fwhm') * gaussian_fwhm_to_sigma
+        kernel = Gaussian2DKernel(sigma,
+                                  x_size=self.config_section.get('kernel_x'),
+                                  y_size=self.config_section.get('kernel_y'))
+        kernel.normalize()
+        data[mask] = 0
+        segm = detect_sources(data,
+                              median *
+                              self.config_section.get('detect_threshold'),
+                              npixels=self.config_section.get('npixels'),
+                              filter_kernel=kernel)
+        properties = properties_table(
+            source_properties(data - np.uint64(median), segm),
+            columns=['id', 'xcentroid', 'ycentroid', 'source_sum',
+                     'semimajor_axis_sigma', 'semiminor_axis_sigma',
+                     'orientation'])
 
-            self.info('Found star properties')
-            self.info(properties)
+        self.info('Found star properties')
+        self.info(properties)
 
-            if len(properties) > 1:
-                self.warning('More than one object has been found')
-                properties = self._find_nearest_object(star_coo, properties, data.shape)
-                return properties
-            else:
-                self.info('Finding star properties finished')
-                return properties[0]
-
+        if len(properties) > 1:
+            self.warning('More than one object has been found')
+            properties = self._find_nearest_object(
+                star_coo, properties, data.shape)
+            return properties
+        else:
+            self.info('Finding star properties finished')
+            return properties[0]
 
     def _find_nearest_object(self, star_coo, properties, data_shape):
         self.info('Finding nearest obejct started')
@@ -280,7 +289,6 @@ class Savartphot(PipelineBase):
 
         return properties[min_dist_id - 1]
 
-
     def _calc_phot_error(self, hdr, aperture, phot_table, bkgflux_table, bkg_std):
 
         try:
@@ -292,15 +300,14 @@ class Savartphot(PipelineBase):
             (phot_table['residual_aperture_sum'] / effective_gain) +
             (aperture[0].area() * bkg_std ** 2) +
             ((aperture[0].area() ** 2 * bkg_std ** 2) /
-             aperture[1].area())) 
+             aperture[1].area()))
 
         return err
 
-
     def _make_image_plot(self, data, apertures, im_name):
         self.info('Image plot making has been started')
-        norm = ImageNormalize(data, interval=ZScaleInterval(), 
-                      stretch=LinearStretch())
+        norm = ImageNormalize(data, interval=ZScaleInterval(),
+                              stretch=LinearStretch())
 
         plt.imshow(data, cmap='Greys', origin='lower',
                    norm=norm)
@@ -309,45 +316,46 @@ class Savartphot(PipelineBase):
                 linewidth=self.config_section.get('aperture_linewidth'),
                 color=self.config_section.get('aperture_in_color'))
             aperture[1].plot(fill=False,
-                linewidth=self.config_section.get('aperture_linewidth'),
-                color=self.config_section.get('aperture_out_color'))
+                             linewidth=self.config_section.get(
+                                 'aperture_linewidth'),
+                             color=self.config_section.get('aperture_out_color'))
             area = aperture[0]
             area.r, area.a, area.b = [self.config_section.get('r_mask')] * 3
             area.plot(linewidth=self.config_section.get('area_linewidth'),
-                color=self.config_section.get('area_color'),
-                ls=self.config_section.get('area_linestyle'))
+                      color=self.config_section.get('area_color'),
+                      ls=self.config_section.get('area_linestyle'))
 
-        plt.savefig(os.path.join(self.output_directory, im_name+'.png'),
-         dpi=self.config_section.get('plot_images_dpi'))
+        plt.savefig(os.path.join(self.output_directory, im_name + '.png'),
+                    dpi=self.config_section.get('plot_images_dpi'))
         plt.clf()
         self.info('Image plot making has been finished')
 
-    def _make_polarimetry_plot(self, data):  
+    def _make_polarimetry_plot(self, data):
         self.info('Polarimetry results plot making has been started')
         for i, name, unit in zip([10, 12], ['pd', 'pa'], ['%', 'deg']):
             fig = plt.figure()
             fig.set_size_inches(
                 int(x) for x in self.config_section.get('plot_size_inches').split(','))
             ax = fig.add_subplot(111)
-            mean = [np.mean(data[:,i])]*len(data[:,0])
-            std = [np.std(data[:,i])]*len(data[:,0])
-            ax.errorbar(data[:,0], data[:,i], yerr=data[:,i+1], fmt='o')
-            ax.plot(data[:,0], mean, label='Mean={:.2f}'.format(np.mean(data[:,i])),
-                linestyle='--', c='r')
-            ax.plot(data[:,0], mean-np.std(data[:,i]), linestyle='--', c='k')
-            ax.plot(data[:,0], mean+np.std(data[:,i]),
-                label='std={:.2f}'.format(np.std(data[:,i])),
-                linestyle='--', c='k')
+            mean = [np.mean(data[:, i])] * len(data[:, 0])
+            std = [np.std(data[:, i])] * len(data[:, 0])
+            ax.errorbar(data[:, 0], data[:, i], yerr=data[:, i + 1], fmt='o')
+            ax.plot(data[:, 0], mean, label='Mean={:.2f}'.format(np.mean(data[:, i])),
+                    linestyle='--', c='r')
+            ax.plot(data[:, 0], mean - np.std(data[:, i]),
+                    linestyle='--', c='k')
+            ax.plot(data[:, 0], mean + np.std(data[:, i]),
+                    label='std={:.2f}'.format(np.std(data[:, i])),
+                    linestyle='--', c='k')
             ax.set_xlabel('JD')
             ax.set_ylabel('{}[{}]'.format(name.upper(), unit))
             plt.legend(loc='upper right')
 
             plt.savefig(os.path.join(self.output_directory,
-                self.config_section.get('{}_file_name'.format(name))),
-            dpi=self.config_section.get('plot_polarimetry_dpi'))
+                                     self.config_section.get('{}_file_name'.format(name))),
+                        dpi=self.config_section.get('plot_polarimetry_dpi'))
             plt.clf()
             self.info('Polarimetry results plot making has been finished')
-
 
     def _save_image_output(self, out_table, output_name):
         self.info('Image ouput saving has been started')
@@ -355,16 +363,15 @@ class Savartphot(PipelineBase):
         out_table.add_column(
             Column(name='COUNTS', data=out_table[
                 self.config_section.get('flux_type')]),
-             index=0)
+            index=0)
         out_table.add_column(
             Column(name='COUNTS_ERR', data=out_table[
                 self.config_section.get('flux_error_type')]),
             index=1)
 
         out_table.write(os.path.join(self.output_directory, output_name),
-            format='ascii', delimiter=',', overwrite=True)
+                        format='ascii', delimiter=',', overwrite=True)
         self.info('Image ouput saving has been finished')
-
 
     def process(self):
         self.info('Processing has been started')
@@ -385,8 +392,10 @@ class Savartphot(PipelineBase):
                                     table_names=['raw', 'bkg'])
 
                 if self.config_section.get('bkg_annulus'):
-                    self.info('Mean background value from annulus has been used.')
-                    bkg_mean = phot_table['aperture_sum_bkg'] / aperture[1].area()
+                    self.info(
+                        'Mean background value from annulus has been used.')
+                    bkg_mean = phot_table['aperture_sum_bkg'] / \
+                        aperture[1].area()
                     bkg_sum = bkg_mean * aperture[0].area()
                     self.info('Mean background value\n {}'.format(bkg_mean))
                 else:
@@ -396,12 +405,11 @@ class Savartphot(PipelineBase):
                     bkg_sum = bkg_mean * aperture[0].area()
                     self.info('Mean background value\n {}'.format(bkg_mean))
 
-                
                 final_sum = phot_table['aperture_sum_raw'] - bkg_sum
                 phot_table['residual_aperture_sum'] = final_sum
 
                 final_sum_error = self._calc_phot_error(image.hdr, aperture,
-                            phot_table, bkgflux_table, sigma_value.std)
+                                                        phot_table, bkgflux_table, sigma_value.std)
 
                 phot_table.add_column(
                     Column(name='residual_aperture_err_sum',
@@ -420,7 +428,7 @@ class Savartphot(PipelineBase):
 
             self.measurements.append(
                 SavartCounts(image.savart, image.jd,
-                    counts_tab, counts_error_tab))
+                             counts_tab, counts_error_tab))
 
             if self.config_section.get('plot_images'):
                 self._make_image_plot(image.data, apertures, image.name)
@@ -429,17 +437,15 @@ class Savartphot(PipelineBase):
 
         self._save_polarizaton_results()
 
-
     def _create_savarts_tables(self):
         savart1_tab = list(filter(
-            lambda savart: savart.name==self.savarts_to_process[0],
-         self.measurements))
+            lambda savart: savart.name == self.savarts_to_process[0],
+            self.measurements))
         savart2_tab = list(filter(
-            lambda savart: savart.name==self.savarts_to_process[1],
-         self.measurements))
+            lambda savart: savart.name == self.savarts_to_process[1],
+            self.measurements))
 
         return savart1_tab, savart2_tab
-
 
     def _save_polarizaton_results(self):
         self.info('Saving polarization results have been started')
@@ -452,9 +458,10 @@ class Savartphot(PipelineBase):
 
         for savart1, savart2 in zip(savart1_tab, savart2_tab):
             spark = get_stokes([savart1.counts1, savart1.counts2,
-                savart2.counts1, savart2.counts2],
-                [savart1.error1, savart1.error2,
-                savart2.error1, savart2.error2])
+                                savart2.counts1, savart2.counts2],
+                               [savart1.error1, savart1.error2,
+                                savart2.error1, savart2.error2],
+                                self.t, self.e, self.phi)
 
             # classic stokes calculation
             pair = SavartsPair(savart1, savart2)
@@ -463,15 +470,14 @@ class Savartphot(PipelineBase):
             # spark axon
             output_table.append([pair.jd] + [v for v in spark.values()])
 
-        output_header = 'JD' + ' '.join([k for k in spark.keys()])
+        output_header = 'JD ' + ' '.join([k for k in spark.keys()])
 
         np.savetxt(os.path.join(self.output_directory,
-            self.config_section.get('results_file_name')+
-            self.config_section.get('results_file_ext')),
-            np.array(output_table),
-            delimiter=',', header=output_header, comments='')
+                                self.config_section.get('results_file_name') +
+                                self.config_section.get('results_file_ext')),
+                   np.array(output_table),
+                   delimiter=',', header=output_header, comments='')
 
         if self.config_section.get('plot_polarimetry'):
             self._make_polarimetry_plot(np.array(output_table))
         self.info('Saving polarization results have been finished')
-
